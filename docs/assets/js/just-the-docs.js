@@ -49,10 +49,10 @@ var myVariable = `
     "relUrl": "/apps/tcpip_tcp_client/docs/readme_mhc_configuration.html"
   },"8": {
     "doc": "Running Application",
-    "title": "TCP/IP TCP Server Running Application",
+    "title": "TCP/IP TCP Client Running Application",
     "content": " ",
-    "url": "http://localhost:4000/net_apps_pic32mx/apps/tcpip_tcp_client/docs/readme_run_application.html#tcpip-tcp-server-running-application",
-    "relUrl": "/apps/tcpip_tcp_client/docs/readme_run_application.html#tcpip-tcp-server-running-application"
+    "url": "http://localhost:4000/net_apps_pic32mx/apps/tcpip_tcp_client/docs/readme_run_application.html#tcpip-tcp-client-running-application",
+    "relUrl": "/apps/tcpip_tcp_client/docs/readme_run_application.html#tcpip-tcp-client-running-application"
   },"9": {
     "doc": "Running Application",
     "title": "MPLAB X IDE Project",
