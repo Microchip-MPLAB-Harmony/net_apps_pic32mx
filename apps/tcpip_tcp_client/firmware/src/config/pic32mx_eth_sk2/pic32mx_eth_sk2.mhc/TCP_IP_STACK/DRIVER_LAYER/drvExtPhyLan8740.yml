@@ -1,0 +1,6 @@
+format_version: v1.0
+type: UniqueComponent
+attributes: {id: drvExtPhyLan8740}
+children:
+- type: ElementPosition
+  attributes: {x: '264', y: '66', id: drvExtPhyLan8740}

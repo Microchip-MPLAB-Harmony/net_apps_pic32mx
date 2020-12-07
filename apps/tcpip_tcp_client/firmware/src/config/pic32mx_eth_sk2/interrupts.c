@@ -66,17 +66,17 @@ void ETHERNET_InterruptHandler( void );
 
 
 /* All the handlers are defined here.  Each will call its PLIB-specific function. */
-void __ISR(_CORE_TIMER_VECTOR, ipl1AUTO) CORE_TIMER_Handler (void)
+void __ISR(_CORE_TIMER_VECTOR, ipl1SOFT) CORE_TIMER_Handler (void)
 {
     CORE_TIMER_InterruptHandler();
 }
 
-void __ISR(_UART_2_VECTOR, ipl1AUTO) UART_2_Handler (void)
+void __ISR(_UART_2_VECTOR, ipl1SOFT) UART_2_Handler (void)
 {
     UART_2_InterruptHandler();
 }
 
-void __ISR(_ETH_VECTOR, ipl5AUTO) ETH_Handler (void)
+void __ISR(_ETH_VECTOR, ipl5SRS) ETH_Handler (void)
 {
     ETHERNET_InterruptHandler();
 }
