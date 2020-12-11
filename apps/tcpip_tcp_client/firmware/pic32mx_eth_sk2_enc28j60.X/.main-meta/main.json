@@ -1,0 +1,76 @@
+{
+	"metaDataVersion": "1.0.0",
+	"category": "com.microchip.ide.project",
+	"content": {
+		"metaDataVersion": "1.1.0",
+		"name": "com.microchip.mcu32.mplabx.project.net_apps_pic32mx_tcpip_tcp_client_pic32mx_eth_sk2_enc28j60",
+		"version": "3.7.0",
+		"displayName": "TCP/IP TCP Client Applications Example for PIC32MX Family",
+		"projectName": "tcpip_tcp_client",
+		"shortDescription": "The TCP Client configuration demonstrates creating a network client with the MPLAB Harmony TCP API to make a TCP/IP connection to a web server.",
+		"ide": {
+			"name": "MPLABX",
+			"semverRange": ">=5.45.0"
+		},
+		"compiler": [
+			{
+				"name": "XC32",
+				"semverRange": ">=2.50.0"
+			}
+		],
+		"dfp": {
+			"name": "PIC32MX_DFP",
+			"semverRange": "^1.3.231"
+		},
+		"configurator": {
+			"name": "MHC",
+			"semverRange": ">=3.6.2"
+		},
+		"device": {
+			"metaDataVersion": "1.0.0",
+			"category": "com.microchip.portal.contentRef",
+			"content": {
+				"metaDataVersion": "1.0.0",
+				"category": "com.microchip.device",
+				"name": "PIC32MX795F512L",
+				"versionRange": "*"
+			}
+		},
+		"author": "Microchip",
+		"subcategories": [
+			[
+				"Development Kit", "PIC32MX Ethernet Starter Kit II"
+			],
+			[
+				"Harmony", "Middleware", "TCP/IP", "TCPIP_TCP_CLIENT"
+			],
+			[
+				"Middleware", "TCP/IP", "TCPIP_TCP_CLIENT"
+			]
+		],
+		"peripherals": [
+			"MAC"
+		],
+		"keywords": [
+			"MHC",
+			"Harmony",
+			"Middleware",
+			"TCP/IP",
+			"PIC32MX795F512L",
+			"PIC32MX Family",
+			"Ethernet MAC",
+			"GMAC"
+		],
+		"additionalData": {
+			"longDescription": {
+				"metaDataVersion": "1.0.0",
+				"category": "com.microchip.portal.fileRef",
+				"content": {
+					"metaDataVersion": "1.0.0",
+					"fileName": "./../../readme.md",
+					"mimeType": "text/markdown"
+				}
+			}
+		}
+	}
+}
