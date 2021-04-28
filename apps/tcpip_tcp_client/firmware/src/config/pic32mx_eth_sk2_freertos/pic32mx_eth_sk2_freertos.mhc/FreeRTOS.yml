@@ -46,4 +46,4 @@ children:
         children:
         - {type: Value, value: 'false'}
 - type: ElementPosition
-  attributes: {x: '171', y: '143', id: FreeRTOS}
+  attributes: {x: '15', y: '159', id: FreeRTOS}

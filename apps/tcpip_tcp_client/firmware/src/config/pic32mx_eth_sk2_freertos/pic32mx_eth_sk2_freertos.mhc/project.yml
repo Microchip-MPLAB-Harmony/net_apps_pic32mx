@@ -1553,13 +1553,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: BBE2AB9763E7BB36934A49D9681301A3
-- generatedChecksum: D352511E5E665F373A8BED912F77B55F
+- generatedChecksum: 4CA651B040331DEEC8D0AFF902D4005E
   logicalPath: config\pic32mx_eth_sk2_freertos
   name: configuration.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: D352511E5E665F373A8BED912F77B55F
+  userChecksum: 4CA651B040331DEEC8D0AFF902D4005E
 - generatedChecksum: E2213F8AC22EC0D94CED6269EA154195
   logicalPath: wolfcrypt
   name: cpuid.h
@@ -3317,13 +3317,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: C99E758A00938DD4FF1F7209697D49E5
-- generatedChecksum: 4B3C3EF8A318908A22B78500515C3288
+- generatedChecksum: null
   logicalPath: config\pic32mx_eth_sk2_freertos
   name: user.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 4B3C3EF8A318908A22B78500515C3288
+  userChecksum: null
 - generatedChecksum: 3144F84B824DCBB3D2DDFD94665867BD
   logicalPath: wolfcrypt
   name: visibility.h

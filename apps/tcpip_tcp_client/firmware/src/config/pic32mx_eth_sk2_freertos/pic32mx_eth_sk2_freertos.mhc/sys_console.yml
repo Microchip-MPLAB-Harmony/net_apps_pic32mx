@@ -75,33 +75,6 @@ children:
             attributes: {id: enabled}
             children:
             - {type: Value, value: 'true'}
-      - type: File
-        attributes: {id: SYS_CONSOLE_USB_CDC_SOURCE}
-        children:
-        - type: Attributes
-          children:
-          - type: Boolean
-            attributes: {id: enabled}
-            children:
-            - {type: Value, value: 'false'}
-      - type: File
-        attributes: {id: SYS_CONSOLE_USB_DEFINITIONS_HEADER}
-        children:
-        - type: Attributes
-          children:
-          - type: Boolean
-            attributes: {id: enabled}
-            children:
-            - {type: Value, value: 'false'}
-      - type: File
-        attributes: {id: SYS_CONSOLE_USB_HEADER}
-        children:
-        - type: Attributes
-          children:
-          - type: Boolean
-            attributes: {id: enabled}
-            children:
-            - {type: Value, value: 'false'}
     - type: Attachments
       children:
       - type: DirectDependency
@@ -118,4 +91,4 @@ children:
             children:
             - {type: Value, value: UART2_UART}
 - type: ElementPosition
-  attributes: {x: '125', y: '228', id: sys_console}
+  attributes: {x: '153', y: '199', id: sys_console}
