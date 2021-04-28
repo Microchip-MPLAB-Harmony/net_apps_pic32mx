@@ -16,6 +16,7 @@ This table list the name and location of the MPLAB X IDE project folder for the 
 |Project Name|  Target Device|  Target Development Board | Description  |
 |:-------------:|:---------:|:---------:|:---------:|
 |pic32mx_eth_sk2.X | PIC32MX795F512L | PIC32MX Ethernet Starter Kit II | Demonstrates the TCP/IP TCP Client on development board with PIC32MX795F512L device and LAN8740 PHY daughter board. This is a bare-metal (non-RTOS) implementation.  |
+|pic32mx_eth_sk2_freertos.X | PIC32MX795F512L | PIC32MX Ethernet Starter Kit II | Demonstrates the TCP/IP TCP Client on development board with PIC32MX795F512L device and LAN8740 PHY daughter board. This is a **FreeRtos** implementation.  |
 |pic32mx_eth_sk2_enc28j60.X | PIC32MX795F512L | PIC32MX Starter Kit II + External Ethernet Pictail Controller  ENC28j60 + I/O Expansion Board  | Demonstrates the TCP/IP TCP Client on development board with PIC32MX795F512L device and external Ethernet controller ENC28J60. This is a bare-metal (non-RTOS) implementation  |
 |pic32mx_eth_sk2_encx24j600.X | PIC32MX795F512L | PIC32MX Starter Kit II + External Ethernet Pictail Controller  ENCx24j600 + I/O Expansion Board  | Demonstrates the TCP/IP TCP Client on development board with PIC32MX795F512L device and external Ethernet controller ENCx24j600. This is a bare-metal (non-RTOS) implementation  |
 
@@ -42,20 +43,26 @@ This table list the name and location of the MPLAB X IDE project folder for the 
 		* Alternatively: Use the Announce service or ping to get the IP address of the board.
 
         * Run **tcpip_discoverer.jar** to discover the IPv4 and IPv6 address for the board.
-        
+
 5. Execution :
-    
-    1. Open the telnet session to get the console output. After the successful broad bring up, the console output for telnet session provides the output. The below diagram shows the UART console output.
+
+    1. Open the Telnet or UART2 session to get the console output. After the successful broad bring up, the console output for telnet session provides the output. The below diagram shows the UART console output.
+
+        UART2 Output -
 
         ![tcpip_tcp_client_project](images/dhcp_5.png)
 
-    2. For TCP Client test, input the following command from the serial port: 
-		Open the telnet session with the board IP address
-    	
-    	**openurl < url >** - The < url > argument must be a fully formed URL; for instance, http://www.microchip.com/.
+        Telnet Output -
+
+        ![tcpip_tcp_client_project](images/dhcp_telnet.png)
+
+    2. For TCP Client test, input the following command from the serial port:
+	Open the telnet session with the board IP address
+
+        **openurl < url >** - The < url > argument must be a fully formed URL; for instance, http://www.microchip.com/.
 
         For this above URL , the DNS module will make a DNS query. Then it will open a connection to the requested URL and perform a simple HTTP GET command.
-        
+
         The response received from the server will be printed on the terminal application through the serial port.
 
         The expected output -
