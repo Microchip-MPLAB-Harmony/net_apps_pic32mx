@@ -85,19 +85,21 @@ typedef enum
 
 typedef enum
 {
+    /* No events yet. */
+    DMAC_TRANSFER_EVENT_NONE = 0,
+
     /* Data was transferred successfully. */
-    DMAC_TRANSFER_EVENT_COMPLETE,
+    DMAC_TRANSFER_EVENT_COMPLETE = 1,
 
     /* Error while processing the request */
-    DMAC_TRANSFER_EVENT_ERROR,
+    DMAC_TRANSFER_EVENT_ERROR = 2,
 
-    /* No events yet. */
-    DMAC_TRANSFER_EVENT_NONE
+    /* Half Data is transferred */
+    DMAC_TRANSFER_EVENT_HALF_COMPLETE = 4
 
 } DMAC_TRANSFER_EVENT;
 
 typedef void (*DMAC_CHANNEL_CALLBACK) (DMAC_TRANSFER_EVENT status, uintptr_t contextHandle);
-
 typedef struct
 {
     bool inUse;
@@ -136,6 +138,32 @@ typedef enum
 
 } DMAC_CHANNEL;
 
+typedef struct
+{
+    /* DCRCCON[CRCAPP]: The DMA transfers data from the source into the CRC engine and
+     * writes the calculated CRC value to the destination when enabled
+    */
+    bool append_mode;
+
+    /* DCRCCON[BITO]: The input data is bit reversed (reflected input) when enabled */
+    bool reverse_crc_input;
+
+    /* DCRCCON[PLEN]: Determines the length of the polynomial Example: 16, 32 */
+    uint8_t polynomial_length;
+
+    /* DCRCXOR: Polynomial for calculating the CRC */
+    uint32_t polynomial;
+
+    /* DRCRDATA: Input Non direct Seed for calculating the CRC */
+    uint32_t non_direct_seed;
+
+    /* The calculated CRC is bit reversed (reflected output) before final XOR */
+    bool reverse_crc_output;
+
+    /* The XOR value used to generate final CRC output */
+    uint32_t final_xor_value;
+} DMAC_CRC_SETUP;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: DMAC API
@@ -148,9 +176,21 @@ void DMAC_ChannelCallbackRegister(DMAC_CHANNEL channel, const DMAC_CHANNEL_CALLB
 
 bool DMAC_ChannelTransfer( DMAC_CHANNEL channel, const void *srcAddr, size_t srcSize, const void *destAddr, size_t destSize, size_t cellSize);
 
+bool DMAC_ChainTransferSetup( DMAC_CHANNEL channel, const void *srcAddr, size_t srcSize, const void *destAddr, size_t destSize, size_t cellSize);
+
+void DMAC_ChannelPatternMatchSetup(DMAC_CHANNEL channel, uint8_t patternMatchData);
+void DMAC_ChannelPatternMatchDisable(DMAC_CHANNEL channel);
 void DMAC_ChannelDisable(DMAC_CHANNEL channel);
 
 bool DMAC_ChannelIsBusy(DMAC_CHANNEL channel);
+
+DMAC_TRANSFER_EVENT DMAC_ChannelTransferStatusGet(DMAC_CHANNEL channel);
+
+void DMAC_ChannelCRCSetup( DMAC_CHANNEL channel, DMAC_CRC_SETUP CRCSetup );
+
+void DMAC_CRCDisable( void );
+
+uint32_t DMAC_CRCRead( void );
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

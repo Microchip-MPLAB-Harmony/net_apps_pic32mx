@@ -80,15 +80,15 @@ SYS_CMD_Tasks();
 
 
     /* Maintain Device Drivers */
-    /* ENCX24J600 Tasks Function */
-DRV_ENCX24J600_Tasks(sysObj.encx24j600Object);
-
-
-
+    
 
     /* Maintain Middleware & Other Libraries */
     
 TCPIP_STACK_Task(sysObj.tcpip);
+
+
+
+NET_PRES_Tasks(sysObj.netPres);
 
 
 

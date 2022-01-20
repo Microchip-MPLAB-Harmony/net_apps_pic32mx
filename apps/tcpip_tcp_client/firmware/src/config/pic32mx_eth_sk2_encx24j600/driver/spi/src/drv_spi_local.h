@@ -248,6 +248,10 @@ typedef struct
     /* This is the SPI receive register address. Used for DMA operation. */
     void*                           rxAddress;
 
+    bool                            dmaRxChannelIntStatus;
+    bool                            dmaTxChannelIntStatus;
+    bool                            dmaInterruptStatus;
+
     /* Buffer for transmitting/receiving dummy data */
     uint8_t __ALIGNED(4)            dummyDataBuffer[256];
 
@@ -260,18 +264,27 @@ typedef struct
     bool                            spiTxReadyIntStatus;
     bool                            spiTxCompleteIntStatus;
     bool                            spiRxIntStatus;
-    bool                            dmaRxChannelIntStatus;
-    bool                            dmaTxChannelIntStatus;
+
     bool                            spiInterruptStatus;
-    bool                            dmaInterruptStatus;
+
 
     const DRV_SPI_INTERRUPT_SOURCES*      interruptSources;
+
+    /* Handle to the client that owns the exclusive use mutex */
+    DRV_HANDLE                      exclusiveUseClientHandle;
+
+    bool                            drvInExclusiveMode;
+
+    uint32_t                        exclusiveUseCntr;
 
     /* Mutex to protect access to the client objects */
     OSAL_MUTEX_DECLARE(mutexClientObjects);
 
     /* Mutex to protect access to the transfer objects */
     OSAL_MUTEX_DECLARE(mutexTransferObjects);
+
+    /* Mutex to lock SPI driver instance for exclusive use by a client */
+    OSAL_MUTEX_DECLARE(mutexExclusiveUse);
 
 } DRV_SPI_OBJ;
 

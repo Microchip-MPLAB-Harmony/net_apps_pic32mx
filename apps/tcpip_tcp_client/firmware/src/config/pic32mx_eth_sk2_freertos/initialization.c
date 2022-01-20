@@ -99,13 +99,16 @@
 // Section: Driver Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+/* Forward declaration of MAC initialization data */
+const TCPIP_MODULE_MAC_PIC32INT_CONFIG tcpipMACPIC32INTInitData;
 
 
-/* MIIM Driver Configuration */
-static const DRV_MIIM_INIT drvMiimInitData =
-{
-    .ethphyId = DRV_MIIM_ETH_MODULE_ID,
-};
+/* Forward declaration of MIIM initialization data */
+static const DRV_MIIM_INIT drvMiimInitData;
+
+
+/* Forward declaration of PHY initialization data */
+const DRV_ETHPHY_INIT tcpipPhyInitData_LAN8740;
 
 
 
@@ -122,6 +125,25 @@ SYSTEM_OBJECTS sysObj;
 // Section: Library/Stack Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+/*** ETH MAC Initialization Data ***/
+const TCPIP_MODULE_MAC_PIC32INT_CONFIG tcpipMACPIC32INTInitData =
+{ 
+    .nTxDescriptors         = TCPIP_EMAC_TX_DESCRIPTORS,
+    .rxBuffSize             = TCPIP_EMAC_RX_BUFF_SIZE,
+    .nRxDescriptors         = TCPIP_EMAC_RX_DESCRIPTORS,
+    .nRxDedicatedBuffers    = TCPIP_EMAC_RX_DEDICATED_BUFFERS,
+    .nRxInitBuffers         = TCPIP_EMAC_RX_INIT_BUFFERS,
+    .rxLowThreshold         = TCPIP_EMAC_RX_LOW_THRESHOLD,
+    .rxLowFill              = TCPIP_EMAC_RX_LOW_FILL,
+    .linkInitDelay          = TCPIP_INTMAC_PHY_LINK_INIT_DELAY,
+    .ethFlags               = TCPIP_EMAC_ETH_OPEN_FLAGS,
+    .ethModuleId            = TCPIP_INTMAC_MODULE_ID,
+    .pPhyBase               = &DRV_ETHPHY_OBJECT_BASE_Default,
+    .pPhyInit               = &tcpipPhyInitData_LAN8740,
+};
+
+
+
 
 // <editor-fold defaultstate="collapsed" desc="TCP/IP Stack Initialization Data">
 // *****************************************************************************
@@ -211,44 +233,6 @@ const TCPIP_ICMP_MODULE_CONFIG tcpipICMPInitData =
 const TCPIP_NBNS_MODULE_CONFIG tcpipNBNSInitData =
 { 
     0
-};
-
-
-
-
-
-/*** ETH PHY Initialization Data ***/
-
-
-
-const DRV_ETHPHY_INIT tcpipPhyInitData =
-{    
-    .ethphyId               = TCPIP_INTMAC_MODULE_ID,
-    .phyAddress             = TCPIP_INTMAC_PHY_ADDRESS,
-    .phyFlags               = TCPIP_INTMAC_PHY_CONFIG_FLAGS,
-    .pPhyObject             = &DRV_ETHPHY_OBJECT_SMSC_LAN8740,
-    .resetFunction          = 0,
-    .pMiimObject            = &DRV_MIIM_OBJECT_BASE_Default,
-    .pMiimInit              = &drvMiimInitData,
-    .miimIndex              = DRV_MIIM_DRIVER_INDEX,
-
-};
-
-/*** ETH MAC Initialization Data ***/
-const TCPIP_MODULE_MAC_PIC32INT_CONFIG tcpipMACPIC32INTInitData =
-{ 
-    .nTxDescriptors         = TCPIP_EMAC_TX_DESCRIPTORS,
-    .rxBuffSize             = TCPIP_EMAC_RX_BUFF_SIZE,
-    .nRxDescriptors         = TCPIP_EMAC_RX_DESCRIPTORS,
-    .nRxDedicatedBuffers    = TCPIP_EMAC_RX_DEDICATED_BUFFERS,
-    .nRxInitBuffers         = TCPIP_EMAC_RX_INIT_BUFFERS,
-    .rxLowThreshold         = TCPIP_EMAC_RX_LOW_THRESHOLD,
-    .rxLowFill              = TCPIP_EMAC_RX_LOW_FILL,
-    .linkInitDelay          = TCPIP_INTMAC_PHY_LINK_INIT_DELAY,
-    .ethFlags               = TCPIP_EMAC_ETH_OPEN_FLAGS,
-    .ethModuleId            = TCPIP_INTMAC_MODULE_ID,
-    .pPhyBase               = &DRV_ETHPHY_OBJECT_BASE_Default,
-    .pPhyInit               = &tcpipPhyInitData,
 };
 
 
@@ -378,6 +362,29 @@ SYS_MODULE_OBJ TCPIP_STACK_Init(void)
     return TCPIP_STACK_Initialize(0, &tcpipInit.moduleInit);
 }
 // </editor-fold>
+
+/* MIIM Driver Configuration */
+static const DRV_MIIM_INIT drvMiimInitData =
+{
+	.ethphyId = DRV_MIIM_ETH_MODULE_ID,
+};
+
+
+    
+    
+
+/*** ETH PHY Initialization Data ***/
+const DRV_ETHPHY_INIT tcpipPhyInitData_LAN8740 =
+{    
+    .ethphyId               = TCPIP_INTMAC_MODULE_ID,
+    .phyAddress             = TCPIP_INTMAC_PHY_ADDRESS,
+    .phyFlags               = TCPIP_INTMAC_PHY_CONFIG_FLAGS,
+    .pPhyObject             = &DRV_ETHPHY_OBJECT_LAN8740,
+    .resetFunction          = 0,
+    .pMiimObject            = &DRV_MIIM_OBJECT_BASE_Default,
+    .pMiimInit              = &drvMiimInitData,
+    .miimIndex              = DRV_MIIM_DRIVER_INDEX,
+};
 
 /* Net Presentation Layer Data Definitions */
 #include "net_pres/pres/net_pres_enc_glue.h"
@@ -644,11 +651,11 @@ void SYS_Initialize ( void* data )
 
 
 
-	/* Network Presentation Layer Initialization */
-	sysObj.netPres = NET_PRES_Initialize(0, (SYS_MODULE_INIT*)&netPresInitData);
-    /* TCPIP Stack Initialization */
-    sysObj.tcpip = TCPIP_STACK_Init();
-    SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
+/* Network Presentation Layer Initialization */
+sysObj.netPres = NET_PRES_Initialize(0, (SYS_MODULE_INIT*)&netPresInitData);
+/* TCPIP Stack Initialization */
+sysObj.tcpip = TCPIP_STACK_Init();
+SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
 
 
     CRYPT_WCCB_Initialize();

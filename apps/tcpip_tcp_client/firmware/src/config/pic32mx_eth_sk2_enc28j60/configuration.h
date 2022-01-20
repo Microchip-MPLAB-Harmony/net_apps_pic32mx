@@ -56,7 +56,7 @@
 */
 
 #include "user.h"
-#include "toolchain_specifics.h"
+#include "device.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -158,8 +158,7 @@ extern "C" {
 #define TCPIP_DNS_CLIENT_CACHE_PER_IPV6_ADDRESS		1
 #define TCPIP_DNS_CLIENT_ADDRESS_TYPE			    IP_ADDRESS_TYPE_IPV4
 #define TCPIP_DNS_CLIENT_CACHE_DEFAULT_TTL_VAL		1200
-#define TCPIP_DNS_CLIENT_CACHE_UNSOLVED_ENTRY_TMO	10
-#define TCPIP_DNS_CLIENT_LOOKUP_RETRY_TMO			5
+#define TCPIP_DNS_CLIENT_LOOKUP_RETRY_TMO			2
 #define TCPIP_DNS_CLIENT_MAX_HOSTNAME_LEN			64
 #define TCPIP_DNS_CLIENT_MAX_SELECT_INTERFACES		4
 #define TCPIP_DNS_CLIENT_DELETE_OLD_ENTRIES			true
@@ -195,6 +194,7 @@ extern "C" {
 #define TCPIP_TCP_QUIET_TIME		        	    0
 #define TCPIP_TCP_COMMANDS   false
 #define TCPIP_TCP_EXTERN_PACKET_PROCESS   false
+#define TCPIP_TCP_DISABLE_CRYPTO_USAGE		        	    false
 
 
 
@@ -254,6 +254,25 @@ extern "C" {
 													TCPIP_NETWORK_CONFIG_IP_STATIC
 													
 #define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0			DRV_ENC28J60_MACObject
+
+
+
+/*** telnet Configuration ***/
+#define TCPIP_STACK_USE_TELNET_SERVER
+#define TCPIP_TELNET_MAX_CONNECTIONS    2
+#define TCPIP_TELNET_TASK_TICK_RATE     100
+#define TCPIP_TELNET_SKT_TX_BUFF_SIZE   0
+#define TCPIP_TELNET_SKT_RX_BUFF_SIZE   0
+#define TCPIP_TELNET_LISTEN_PORT        23
+#define TCPIP_TELNET_PRINT_BUFF_SIZE    200
+#define TCPIP_TELNET_LINE_BUFF_SIZE     80
+#define TCPIP_TELNET_USERNAME_SIZE      15
+#define TCPIP_TELNET_CONFIG_FLAGS       \
+                                       TCPIP_TELNET_FLAG_NONE
+
+#define TCPIP_TELNET_OBSOLETE_AUTHENTICATION true
+#define TCPIP_TELNET_USERNAME           "admin"
+#define TCPIP_TELNET_PASSWORD           "microchip"
 
 
 
@@ -351,9 +370,12 @@ extern "C" {
 #define HAVE_MCAPI
 #define WOLF_CRYPTO_CB  // provide call-back support
 #define WOLFCRYPT_ONLY
+#if (__XC32_VERSION > 100000000)
 #define WOLFSSL_HAVE_MIN
 #define WOLFSSL_HAVE_MAX
+#endif
 // ---------- FUNCTIONAL CONFIGURATION START ----------
+#define WOLFSSL_AES_SMALL_TABLES
 #define NO_MD4
 #define WOLFSSL_SHA224
 #define WOLFSSL_AES_128
@@ -364,6 +386,7 @@ extern "C" {
 #define HAVE_AES_ECB
 #define HAVE_AES_CBC
 #define WOLFSSL_AES_COUNTER
+#define WOLFSSL_AES_OFB
 #define HAVE_AESGCM
 #define HAVE_AESCCM
 #define NO_RC4
@@ -378,9 +401,19 @@ extern "C" {
 #define HAVE_HASHDRBG
 #define WC_NO_HARDEN
 #define SINGLE_THREADED
+#define NO_SIG_WRAPPER
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
+
+/* MPLAB Harmony Net Presentation Layer Definitions*/
+#define NET_PRES_NUM_INSTANCE 1
+#define NET_PRES_NUM_SOCKETS 10
+
+
+
+#define TCPIP_STACK_NETWORK_INTERAFCE_COUNT  	2
+
 
 
 

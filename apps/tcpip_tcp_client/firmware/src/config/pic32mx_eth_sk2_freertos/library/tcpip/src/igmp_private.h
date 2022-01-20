@@ -329,7 +329,7 @@ typedef struct
     uint32_t    groupAddress;   // multicast address it refers to
 }TCPIP_IGMP_QUERY_MESSAGE;
 
-// IGMPv2 query message
+// IGMPv3 query message
 typedef struct
 {
     uint8_t     type;           // message type: TCPIP_IGMP_MESSAGE_TYPE
@@ -360,7 +360,7 @@ typedef union
 
 
 // Group Record structure
-typedef struct __attribute__((aligned(2), packed))
+typedef struct
 {
     uint8_t     recordType;         // a TCPIP_IGMPv3_RECORD_TYPE type
     uint8_t     auxLen;
