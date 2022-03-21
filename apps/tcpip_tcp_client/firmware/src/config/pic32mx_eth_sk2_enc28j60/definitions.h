@@ -70,10 +70,6 @@
 #include "peripheral/evic/plib_evic.h"
 #include "peripheral/dmac/plib_dmac.h"
 #include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
-#include "net_pres/pres/net_pres.h"
-#include "net_pres/pres/net_pres_encryptionproviderapi.h"
-#include "net_pres/pres/net_pres_transportapi.h"
-#include "net_pres/pres/net_pres_socketapi.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
 #include "app.h"
@@ -212,8 +208,6 @@ typedef struct
 
     /* SPI0 Driver Object */
     SYS_MODULE_OBJ drvSPI0;
-
-    SYS_MODULE_OBJ  netPres;
 
 
 } SYSTEM_OBJECTS;
