@@ -217,6 +217,8 @@ extern "C" {
 #define TCPIP_DHCP_TIME_SERVER_ADDRESSES            0
 #define TCPIP_DHCP_USE_OPTION_NTP_SERVER            0
 #define TCPIP_DHCP_NTP_SERVER_ADDRESSES             0
+#define TCPIP_DHCP_ARP_LEASE_CHECK_TMO              1000
+#define TCPIP_DHCP_WAIT_ARP_FAIL_CHECK_TMO          10
 
 
 
@@ -260,25 +262,6 @@ extern "C" {
 													TCPIP_NETWORK_CONFIG_IP_STATIC
 													
 #define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0			DRV_ENCX24J600_MACObject
-
-
-
-/*** telnet Configuration ***/
-#define TCPIP_STACK_USE_TELNET_SERVER
-#define TCPIP_TELNET_MAX_CONNECTIONS    2
-#define TCPIP_TELNET_TASK_TICK_RATE     100
-#define TCPIP_TELNET_SKT_TX_BUFF_SIZE   0
-#define TCPIP_TELNET_SKT_RX_BUFF_SIZE   0
-#define TCPIP_TELNET_LISTEN_PORT        23
-#define TCPIP_TELNET_PRINT_BUFF_SIZE    200
-#define TCPIP_TELNET_LINE_BUFF_SIZE     80
-#define TCPIP_TELNET_USERNAME_SIZE      15
-#define TCPIP_TELNET_CONFIG_FLAGS       \
-                                       TCPIP_TELNET_FLAG_NONE
-
-#define TCPIP_TELNET_OBSOLETE_AUTHENTICATION true
-#define TCPIP_TELNET_USERNAME           "admin"
-#define TCPIP_TELNET_PASSWORD           "microchip"
 
 
 
@@ -412,13 +395,7 @@ extern "C" {
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
 
-/* MPLAB Harmony Net Presentation Layer Definitions*/
-#define NET_PRES_NUM_INSTANCE 1
-#define NET_PRES_NUM_SOCKETS 10
-
-
-
-#define TCPIP_STACK_NETWORK_INTERAFCE_COUNT  	2
+#define TCPIP_STACK_NETWORK_INTERAFCE_COUNT  	1
 
 
 
