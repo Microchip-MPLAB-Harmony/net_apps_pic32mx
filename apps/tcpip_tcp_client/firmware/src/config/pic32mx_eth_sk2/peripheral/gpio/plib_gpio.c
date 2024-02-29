@@ -42,6 +42,7 @@
 //DOM-IGNORE-END
 
 #include "plib_gpio.h"
+#include "interrupts.h"
 
 
 
@@ -66,6 +67,8 @@ void GPIO_Initialize ( void )
     /* PORTC Initialization */
 
     /* PORTD Initialization */
+    LATD = 0x0; /* Initial Latch Value */
+    TRISDCLR = 0x7; /* Direction Control */
 
     /* PORTE Initialization */
 
@@ -74,6 +77,7 @@ void GPIO_Initialize ( void )
     /* PORTG Initialization */
 
 
+    CNPUESET = 0x98000; /* Pull-Up Enable */
 }
 
 // *****************************************************************************
@@ -106,7 +110,7 @@ void GPIO_Initialize ( void )
 */
 uint32_t GPIO_PortRead(GPIO_PORT port)
 {
-    return (*(volatile uint32_t *)(&PORTA + (port * 0x10)));
+    return (*(volatile uint32_t *)(&PORTA + (port * 0x10U)));
 }
 
 // *****************************************************************************
@@ -121,7 +125,7 @@ uint32_t GPIO_PortRead(GPIO_PORT port)
 */
 void GPIO_PortWrite(GPIO_PORT port, uint32_t mask, uint32_t value)
 {
-    *(volatile uint32_t *)(&LATA + (port * 0x10)) = (*(volatile uint32_t *)(&LATA + (port * 0x10)) & (~mask)) | (mask & value);
+    *(volatile uint32_t *)(&LATA + (port * 0x10U)) = (*(volatile uint32_t *)(&LATA + (port * 0x10U)) & (~mask)) | (mask & value);
 }
 
 // *****************************************************************************
@@ -136,7 +140,7 @@ void GPIO_PortWrite(GPIO_PORT port, uint32_t mask, uint32_t value)
 */
 uint32_t GPIO_PortLatchRead(GPIO_PORT port)
 {
-    return (*(volatile uint32_t *)(&LATA + (port * 0x10)));
+    return (*(volatile uint32_t *)(&LATA + (port * 0x10U)));
 }
 
 // *****************************************************************************
@@ -151,7 +155,7 @@ uint32_t GPIO_PortLatchRead(GPIO_PORT port)
 */
 void GPIO_PortSet(GPIO_PORT port, uint32_t mask)
 {
-    *(volatile uint32_t *)(&LATASET + (port * 0x10)) = mask;
+    *(volatile uint32_t *)(&LATASET + (port * 0x10U)) = mask;
 }
 
 // *****************************************************************************
@@ -166,7 +170,7 @@ void GPIO_PortSet(GPIO_PORT port, uint32_t mask)
 */
 void GPIO_PortClear(GPIO_PORT port, uint32_t mask)
 {
-    *(volatile uint32_t *)(&LATACLR + (port * 0x10)) = mask;
+    *(volatile uint32_t *)(&LATACLR + (port * 0x10U)) = mask;
 }
 
 // *****************************************************************************
@@ -181,7 +185,7 @@ void GPIO_PortClear(GPIO_PORT port, uint32_t mask)
 */
 void GPIO_PortToggle(GPIO_PORT port, uint32_t mask)
 {
-    *(volatile uint32_t *)(&LATAINV + (port * 0x10))= mask;
+    *(volatile uint32_t *)(&LATAINV + (port * 0x10U))= mask;
 }
 
 // *****************************************************************************
@@ -196,7 +200,7 @@ void GPIO_PortToggle(GPIO_PORT port, uint32_t mask)
 */
 void GPIO_PortInputEnable(GPIO_PORT port, uint32_t mask)
 {
-    *(volatile uint32_t *)(&TRISASET + (port * 0x10)) = mask;
+    *(volatile uint32_t *)(&TRISASET + (port * 0x10U)) = mask;
 }
 
 // *****************************************************************************
@@ -211,7 +215,7 @@ void GPIO_PortInputEnable(GPIO_PORT port, uint32_t mask)
 */
 void GPIO_PortOutputEnable(GPIO_PORT port, uint32_t mask)
 {
-    *(volatile uint32_t *)(&TRISACLR + (port * 0x10)) = mask;
+    *(volatile uint32_t *)(&TRISACLR + (port * 0x10U)) = mask;
 }
 
 

@@ -96,7 +96,7 @@ extern "C" {
 
 #define SYS_CMD_ENABLE
 #define SYS_CMD_DEVICE_MAX_INSTANCES       SYS_CONSOLE_DEVICE_MAX_INSTANCES
-#define SYS_CMD_PRINT_BUFFER_SIZE          1024
+#define SYS_CMD_PRINT_BUFFER_SIZE          1024U
 #define SYS_CMD_BUFFER_DMA_READY
 
 
@@ -107,10 +107,10 @@ extern "C" {
 #define SYS_DEBUG_USE_CONSOLE
 
 
-#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			1
-#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			1
-#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		0
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		200
+#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
+#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
+#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(200U)
 
 
 
@@ -120,17 +120,15 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
-
-
 /*** MIIM Driver Configuration ***/
-#define DRV_MIIM_ETH_MODULE_ID              _ETH_BASE_ADDRESS
+#define DRV_MIIM_ETH_MODULE_ID_0                _ETH_BASE_ADDRESS
+#define DRV_MIIM_DRIVER_INDEX_0                 0
 #define DRV_MIIM_INSTANCES_NUMBER           1
 #define DRV_MIIM_INSTANCE_OPERATIONS        4
 #define DRV_MIIM_INSTANCE_CLIENTS           2
 #define DRV_MIIM_CLIENT_OP_PROTECTION   false
 #define DRV_MIIM_COMMANDS   false
-#define DRV_MIIM_DRIVER_OBJECT              DRV_MIIM_OBJECT_BASE_Default
-#define DRV_MIIM_DRIVER_INDEX               DRV_MIIM_INDEX_0              
+#define DRV_MIIM_DRIVER_OBJECT              DRV_MIIM_OBJECT_BASE_Default            
 
 
 
@@ -259,6 +257,9 @@ extern "C" {
 
 
 
+#define TCPIP_STACK_USE_ICMPV6_SERVER
+
+
 /*** ARP Configuration ***/
 #define TCPIP_ARP_CACHE_ENTRIES                 		5
 #define TCPIP_ARP_CACHE_DELETE_OLD		        	true
@@ -276,30 +277,71 @@ extern "C" {
 
 
 
+#define TCPIP_IPV6_NDP_MAX_RTR_SOLICITATION_DELAY 	1
+#define TCPIP_IPV6_NDP_RTR_SOLICITATION_INTERVAL 	4
+#define TCPIP_IPV6_NDP_MAX_RTR_SOLICITATIONS 		3
+#define TCPIP_IPV6_NDP_MAX_MULTICAST_SOLICIT 		3
+#define TCPIP_IPV6_NDP_MAX_UNICAST_SOLICIT 			3
+#define TCPIP_IPV6_NDP_MAX_ANYCAST_DELAY_TIME 		1
+#define TCPIP_IPV6_NDP_MAX_NEIGHBOR_ADVERTISEMENT 	3
+#define TCPIP_IPV6_NDP_REACHABLE_TIME 				30
+#define TCPIP_IPV6_NDP_RETRANS_TIMER 				1
+#define TCPIP_IPV6_NDP_DELAY_FIRST_PROBE_TIME 		5
+#define TCPIP_IPV6_NDP_VALID_LIFETIME_TWO_HOURS 	(60 * 60 * 2)
+#define TCPIP_IPV6_MTU_INCREASE_TIMEOUT 			600
+#define TCPIP_IPV6_NDP_TASK_TIMER_RATE 				32
+
+
 	/*** tcpip_cmd Configuration ***/
 	#define TCPIP_STACK_COMMAND_ENABLE
 
 
 
 /* Network Configuration Index 0 */
-#define TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0	"ETHMAC"
+#define TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0 "ETHMAC"
 #define TCPIP_IF_ETHMAC
 
-#define TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0				"MCHPBOARD_E"
-#define TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0				0
+#define TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0              "MCHPBOARD_E"
+#define TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0               0
 
-#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0			"192.168.100.10"
-#define TCPIP_NETWORK_DEFAULT_IP_MASK_IDX0			"255.255.255.0"
-#define TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0			"192.168.100.1"
-#define TCPIP_NETWORK_DEFAULT_DNS_IDX0				"192.168.100.1"
-#define TCPIP_NETWORK_DEFAULT_SECOND_DNS_IDX0			"0.0.0.0"
-#define TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0			"full"
-#define TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS_IDX0			\
-													TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON |\
-													TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON |\
-													TCPIP_NETWORK_CONFIG_IP_STATIC
-													
-#define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0			DRV_ETHMAC_PIC32MACObject
+#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0         "192.168.100.10"
+#define TCPIP_NETWORK_DEFAULT_IP_MASK_IDX0            "255.255.255.0"
+#define TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0            "192.168.100.1"
+#define TCPIP_NETWORK_DEFAULT_DNS_IDX0                "192.168.100.1"
+#define TCPIP_NETWORK_DEFAULT_SECOND_DNS_IDX0         "0.0.0.0"
+#define TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0         "full"
+#define TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS_IDX0            \
+                                                    TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON |\
+                                                    TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON |\
+                                                    TCPIP_NETWORK_CONFIG_IP_STATIC
+                                                    
+#define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_ETHMAC_PIC32MACObject
+
+
+
+
+/*** IPv6 Configuration ***/
+#define TCPIP_IPV6_DEFAULT_ALLOCATION_BLOCK_SIZE 		64
+#define TCPIP_IPV6_MINIMUM_LINK_MTU 					1280
+#define TCPIP_IPV6_DEFAULT_LINK_MTU 					1500
+#define TCPIP_IPV6_DEFAULT_CUR_HOP_LIMIT 				64
+#define TCPIP_IPV6_DEFAULT_BASE_REACHABLE_TIME 			30
+#define TCPIP_IPV6_DEFAULT_RETRANSMIT_TIME 				1000
+#define TCPIP_IPV6_QUEUE_NEIGHBOR_PACKET_LIMIT 			1
+#define TCPIP_IPV6_NEIGHBOR_CACHE_ENTRY_STALE_TIMEOUT 	600
+#define TCPIP_IPV6_QUEUE_MCAST_PACKET_LIMIT 			4
+#define TCPIP_IPV6_QUEUED_MCAST_PACKET_TIMEOUT 			10
+#define TCPIP_IPV6_TASK_PROCESS_RATE 					1000
+#define TCPIP_IPV6_INIT_TASK_PROCESS_RATE 				32
+#define TCPIP_IPV6_ULA_GENERATE_ENABLE 					false
+#define TCPIP_IPV6_ULA_NTP_ACCESS_TMO 					12000
+#define TCPIP_IPV6_ULA_NTP_VALID_WINDOW 				1000
+#define TCPIP_IPV6_FRAGMENT_PKT_TIMEOUT 				60
+#define TCPIP_IPV6_RX_FRAGMENTED_BUFFER_SIZE 			1514
+#define TCPIP_IPV6_EXTERN_PACKET_PROCESS   false
+
+
+#define TCPIP_IPV6_G3_PLC_SUPPORT                       false
 
 
 
@@ -316,9 +358,8 @@ extern "C" {
 #define TCPIP_TELNET_CONFIG_FLAGS       \
                                        TCPIP_TELNET_FLAG_NONE
 
-#define TCPIP_TELNET_OBSOLETE_AUTHENTICATION true
-#define TCPIP_TELNET_USERNAME           "admin"
-#define TCPIP_TELNET_PASSWORD           "Microchip"
+#define TCPIP_TELNET_OBSOLETE_AUTHENTICATION false
+#define TCPIP_TELNET_AUTHENTICATION_CONN_INFO true
 
 
 
@@ -363,11 +404,13 @@ extern "C" {
 // *****************************************************************************
 
 #define TCPIP_STACK_USE_IPV4
+#define TCPIP_STACK_USE_IPV6
 #define TCPIP_STACK_USE_TCP
 #define TCPIP_STACK_USE_UDP
 
 #define TCPIP_STACK_TICK_RATE		        		5
 #define TCPIP_STACK_SECURE_PORT_ENTRIES             10
+#define TCPIP_STACK_LINK_RATE		        		333
 
 #define TCPIP_STACK_ALIAS_INTERFACE_SUPPORT   false
 
@@ -382,7 +425,9 @@ extern "C" {
 #define TCPIP_STACK_INTERFACE_CHANGE_SIGNALING   false
 #define TCPIP_STACK_CONFIGURATION_SAVE_RESTORE   true
 #define TCPIP_STACK_EXTERN_PACKET_PROCESS   false
+#define TCPIP_STACK_RUN_TIME_INIT   false
 
+#define TCPIP_STACK_INTMAC_COUNT           1
 
 
 
@@ -427,20 +472,16 @@ extern "C" {
 #define TCPIP_UDP_EXTERN_PACKET_PROCESS   false
 
 
-                                                  
-#define TCPIP_INTMAC_PHY_CONFIG_FLAGS              	( 0 \
+#define DRV_LAN8740_PHY_CONFIG_FLAGS       ( 0 \
                                                     | DRV_ETHPHY_CFG_AUTO \
                                                     )
-
-#define TCPIP_INTMAC_PHY_LINK_INIT_DELAY  			500
-#define TCPIP_INTMAC_PHY_ADDRESS		    			0
-#define DRV_ETHPHY_INSTANCES_NUMBER					1
-#define DRV_ETHPHY_CLIENTS_NUMBER					1
-#define DRV_ETHPHY_INDEX		        			1
-#define DRV_ETHPHY_PERIPHERAL_ID					1
-#define DRV_ETHPHY_NEG_INIT_TMO		    			1
-#define DRV_ETHPHY_NEG_DONE_TMO		    			2000
-#define DRV_ETHPHY_RESET_CLR_TMO					500
+                                                    
+#define DRV_LAN8740_PHY_LINK_INIT_DELAY            500
+#define DRV_LAN8740_PHY_ADDRESS                    0
+#define DRV_LAN8740_PHY_PERIPHERAL_ID              _ETH_BASE_ADDRESS
+#define DRV_ETHPHY_LAN8740_NEG_INIT_TMO            1
+#define DRV_ETHPHY_LAN8740_NEG_DONE_TMO            2000
+#define DRV_ETHPHY_LAN8740_RESET_CLR_TMO           500
 
 
 
@@ -462,6 +503,8 @@ extern "C" {
 #define WOLFSSL_HAVE_MIN
 #define WOLFSSL_HAVE_MAX
 #endif
+#undef WOLFSSL_HAVE_MIN
+#undef WOLFSSL_HAVE_MAX
 // ---------- FUNCTIONAL CONFIGURATION START ----------
 #define WOLFSSL_AES_SMALL_TABLES
 #define NO_MD4
