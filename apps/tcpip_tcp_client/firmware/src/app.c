@@ -82,10 +82,12 @@ APP_DATA appData;
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-
 /* TODO:  Add any necessary callback functions.
 */
 
+#if defined TCPIP_STACK_USE_TELNET_SERVER
+static bool Telnet_AuthHandler(const char* user, const char* password, const TCPIP_TELNET_CONN_INFO* pInfo, const void* hParam);
+#endif  // defined TCPIP_STACK_USE_TELNET_SERVER
 
 // *****************************************************************************
 // *****************************************************************************
@@ -119,7 +121,6 @@ void APP_Initialize ( void )
     
     APP_Commands_Init();
 }
-
 
 /******************************************************************************
   Function:
@@ -173,6 +174,10 @@ void APP_Tasks ( void )
                 }
                 appData.state = APP_TCPIP_WAIT_FOR_IP;
 
+#if defined TCPIP_STACK_USE_TELNET_SERVER
+                TCPIP_TELNET_HANDLE telH = TCPIP_TELNET_AuthenticationRegister(Telnet_AuthHandler, 0);
+                SYS_CONSOLE_PRINT("Telnet authentication registration: %s\r\n", (telH == 0) ? "Failed!" : "Success");
+#endif  // defined TCPIP_STACK_USE_TELNET_SERVER
             }
             break;
         }
@@ -211,7 +216,9 @@ void APP_Tasks ( void )
             {
                 if(_APP_ParseUrl(APP_URL_Buffer, &appData.host, &appData.path, &appData.port) != 0)
                 {
-                    SYS_CONSOLE_PRINT("Could not parse URL '%s'\r\n", APP_URL_Buffer);
+                    APP_Command_Message("Could not parse URL ");
+                    APP_Command_Message(APP_URL_Buffer);
+                    APP_Command_Message("\r\n");
                 }
                 else
                 {
@@ -225,12 +232,12 @@ void APP_Tasks ( void )
                                 (IP_MULTI_ADDRESS*) &addr);
                         if (appData.socket == INVALID_SOCKET)
                         {
-                            SYS_CONSOLE_MESSAGE("Could not start connection\r\n");
+                            APP_Command_Message("Could not start connection\r\n");
                             appData.state = APP_TCPIP_WAITING_FOR_COMMAND;
                         }
                         else
                         {
-                            SYS_CONSOLE_MESSAGE("Starting connection\r\n");
+                            APP_Command_Message("Starting connection\r\n");
                             appData.state = APP_TCPIP_WAIT_FOR_CONNECTION;
                             TCPIP_TCP_WasReset(appData.socket);     // clear the reset flag
                         }
@@ -238,7 +245,7 @@ void APP_Tasks ( void )
                     }
                     else if (result < 0)
                     {
-                        SYS_CONSOLE_MESSAGE("Error in DNS. Aborting\r\n");
+                        APP_Command_Message("Error in DNS. Aborting\r\n");
                         appData.state = APP_TCPIP_WAITING_FOR_COMMAND;
                     }
                     else
@@ -279,10 +286,10 @@ void APP_Tasks ( void )
                                                           (IP_MULTI_ADDRESS*) &addr);
                     if (appData.socket == INVALID_SOCKET)
                     {
-                        SYS_CONSOLE_MESSAGE("Could not start connection\r\n");
+                        APP_Command_Message("Could not start connection\r\n");
                         appData.state = APP_TCPIP_WAITING_FOR_COMMAND;
                     }
-                    SYS_CONSOLE_MESSAGE("Starting connection\r\n");
+                    APP_Command_Message("Starting connection\r\n");
                     appData.state = APP_TCPIP_WAIT_FOR_CONNECTION;
                     TCPIP_TCP_WasReset(appData.socket);     // clear the reset flag
                 }
@@ -317,12 +324,12 @@ void APP_Tasks ( void )
             while (TCPIP_TCP_GetIsReady(appData.socket))
             {
                 TCPIP_TCP_ArrayGet(appData.socket, (uint8_t*)buffer, sizeof(buffer) - 1);
-                SYS_CONSOLE_PRINT("%s", buffer);
+                APP_Command_Message(buffer);
             }
 
             if (!TCPIP_TCP_IsConnected(appData.socket) || TCPIP_TCP_WasDisconnected(appData.socket))
             {
-                SYS_CONSOLE_MESSAGE("\r\nConnection Closed\r\n");
+                APP_Command_Message("\r\nConnection Closed\r\n");
                 TCPIP_TCP_Close(appData.socket);
                 appData.socket = INVALID_SOCKET;
                 appData.state = APP_TCPIP_WAITING_FOR_COMMAND;
@@ -409,12 +416,28 @@ int8_t _APP_PumpDNS(const char * hostname, IPV4_ADDR *ipv4Addr)
         case TCPIP_DNS_RES_SERVER_TMO:
         case TCPIP_DNS_RES_NO_IP_ENTRY:
         default:
-            SYS_CONSOLE_MESSAGE("TCPIP_DNS_IsResolved returned failure\r\n");
+            APP_Command_Message("TCPIP_DNS_IsResolved returned failure\r\n");
     }
 
     return retval;
 
 }
+
+#if defined TCPIP_STACK_USE_TELNET_SERVER
+// simple authentication handler
+//TODO: replace with a stronger credentials 
+static bool Telnet_AuthHandler(const char* user, const char* password, const TCPIP_TELNET_CONN_INFO* pInfo, const void* hParam)
+{
+    if(strcmp(user, "Microchip") == 0)
+    {
+        if(strcmp(password, "Harmony") == 0)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+#endif  // defined TCPIP_STACK_USE_TELNET_SERVER
 
 /*******************************************************************************
  End of File
