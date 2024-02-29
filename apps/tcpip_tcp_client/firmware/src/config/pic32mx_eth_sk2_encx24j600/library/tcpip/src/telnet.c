@@ -9,30 +9,28 @@
     -Reference: RFC 854
 *******************************************************************************/
 
-/*****************************************************************************
- Copyright (C) 2016-2018 Microchip Technology Inc. and its subsidiaries.
+/*
+Copyright (C) 2016-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
-Microchip Technology Inc. and its subsidiaries.
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
 
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*****************************************************************************/
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 
 #define TCPIP_THIS_MODULE_ID    TCPIP_MODULE_TELNET_SERVER
@@ -97,7 +95,7 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 // 0m is clear all attributes
 #define TELNET_START_MSG                "\x1b[2J\x1b[31m\x1b[1m" \
                                 "Microchip Telnet Server 1.1\x1b[0m\r\n" \
-								"Login: "
+                                "Login: "
 //
 // ask password message
 #define TELNET_ASK_PASSWORD_MSG     "Password: " TELNET_CMD_IAC TELNET_CMD_DO TELNET_OPT_SUPP_LOCAL_ECHO        // ask Suppress Local Echo
@@ -366,7 +364,7 @@ static void _Telnet_PUTC(const void* cmdIoParam, char c)
     }
 }
 
-// Telnet's message	
+// Telnet's message 
 static void _Telnet_MSG(const void* cmdIoParam, const char* str)
 {
     NET_PRES_SKT_HANDLE_T tSkt = (NET_PRES_SKT_HANDLE_T)(int)cmdIoParam;
@@ -487,7 +485,7 @@ static void TCPIP_TELNET_Process(void)
 {
     int         tIx;
     TELNET_DCPT* pDcpt;
-    NET_PRES_SKT_HANDLE_T	tSocket;
+    NET_PRES_SKT_HANDLE_T   tSocket;
     TCPIP_TELNET_STATE tState;
 
 
@@ -548,7 +546,7 @@ static void TCPIP_TELNET_Process(void)
                     NET_PRES_SocketDisconnect(tSocket);
                     tState = TCPIP_TELNET_IDLE;
                     break;
-                }	
+                }   
 
             case TCPIP_TELNET_CONNECTED:
                 // Check if you're disconnected and de-register from the command processor
@@ -590,7 +588,7 @@ static TCPIP_TELNET_STATE _Telnet_UserCheck(TELNET_DCPT* pDcpt)
         NET_PRES_SocketWrite(tSkt, (const uint8_t*)TELNET_BUFFER_OVFLOW_MSG, strlen(TELNET_BUFFER_OVFLOW_MSG));
         NET_PRES_SocketWrite(tSkt, (const uint8_t*)TELNET_FAIL_LOGON_MSG, strlen(TELNET_FAIL_LOGON_MSG));
         NET_PRES_SocketDisconnect(tSkt);
-        return TCPIP_TELNET_IDLE;	
+        return TCPIP_TELNET_IDLE;   
     }
 
     // TELNET_MSG_LINE_DONE
@@ -697,7 +695,7 @@ static TCPIP_TELNET_STATE _Telnet_LogonCheck(TELNET_DCPT* pDcpt)
     {
         NET_PRES_SocketWrite(tSkt, (const uint8_t*)TELNET_FAIL_LOGON_MSG, strlen(TELNET_FAIL_LOGON_MSG));
         NET_PRES_SocketDisconnect(tSkt);
-        return TCPIP_TELNET_IDLE;	
+        return TCPIP_TELNET_IDLE;   
     }
 
     // success
@@ -897,5 +895,5 @@ bool TCPIP_TELNET_AuthenticationDeregister(TCPIP_TELNET_HANDLE authHandle)
 
 #endif  // (_TELNET_USE_AUTHENTICATION_CALLBACK != 0)
 
-#endif	//#if defined(TCPIP_STACK_USE_TELNET_SERVER)
+#endif  //#if defined(TCPIP_STACK_USE_TELNET_SERVER)
 
