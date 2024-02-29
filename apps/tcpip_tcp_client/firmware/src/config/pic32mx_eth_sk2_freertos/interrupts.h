@@ -57,6 +57,10 @@
 // *****************************************************************************
 // *****************************************************************************
 
+void CORE_TIMER_InterruptHandler( void );
+void UART_2_InterruptHandler( void );
+void ETHERNET_InterruptHandler( void );
+
 
 
 #endif // INTERRUPTS_H

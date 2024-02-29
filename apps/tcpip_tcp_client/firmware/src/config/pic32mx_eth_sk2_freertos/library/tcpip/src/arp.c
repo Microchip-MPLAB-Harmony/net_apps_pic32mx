@@ -12,30 +12,28 @@
     Reference: RFC 826
 *******************************************************************************/
 
-/*****************************************************************************
- Copyright (C) 2011-2018 Microchip Technology Inc. and its subsidiaries.
+/*
+Copyright (C) 2011-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
-Microchip Technology Inc. and its subsidiaries.
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
 
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*****************************************************************************/
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 
 
@@ -128,7 +126,7 @@ static TCPIP_ARP_RESULT   _ARPProbeAddress(TCPIP_NET_IF* pIf, const IPV4_ADDR* I
 
 static TCPIP_MAC_PACKET* _ARPAllocateTxPacket(void);
 
-static bool         _ARPTxAckFnc (TCPIP_MAC_PACKET * pPkt, const void * param);
+static void         _ARPTxAckFnc (TCPIP_MAC_PACKET * pPkt, const void * param);
 
 static void         TCPIP_ARP_Timeout(void);
 static void         TCPIP_ARP_Process(void);
@@ -349,7 +347,7 @@ static void _ARPProcessRxPkt(TCPIP_NET_IF* pIf, ARP_PACKET* packet)
             if(reg_apps[i].used)
             {
                 reg_apps[i].TCPIP_ARP_PacketNotify(pIf,
-				packet->SenderIPAddr.Val,
+                packet->SenderIPAddr.Val,
                                 packet->TargetIPAddr.Val,
                                 &packet->SenderMACAddr,
                                 &packet->TargetMACAddr,
@@ -852,15 +850,16 @@ static TCPIP_MAC_PACKET* _ARPAllocateTxPacket(void)
 }
 
 
-static bool _ARPTxAckFnc (TCPIP_MAC_PACKET * pPkt, const void * param)
+static void _ARPTxAckFnc (TCPIP_MAC_PACKET * pPkt, const void * param)
 {
     if(arpMod.pMacPkt != pPkt)
     {   // another one allocated
         TCPIP_PKT_PacketFree(pPkt);
-        return false;
     }
-    // else we should be OK
-    return true;
+    else
+    {   // still using this packet
+        pPkt->pktFlags &= ~TCPIP_MAC_PKT_FLAG_QUEUED;
+    }
 }
 
 
@@ -870,6 +869,7 @@ TCPIP_ARP_HANDLE TCPIP_ARP_HandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_ARP_EVEN
     if(handler && arpMod.memH)
     {
         ARP_LIST_NODE arpNode;
+        arpNode.next = 0;
         arpNode.handler = handler;
         arpNode.hParam = hParam;
         arpNode.hNet = hNet;
@@ -1361,8 +1361,9 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntrySet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* ipAd
     OA_HASH_ENTRY   *hE;
     PROTECTED_SINGLE_LIST     *oldList, *newList;
     ARP_ENTRY_FLAGS newFlags;
-    TCPIP_ARP_RESULT      res;
+    TCPIP_ARP_RESULT res;
     TCPIP_NET_IF    *pIf;
+    bool setEntry;
 
     if(ipAdd == 0 || ipAdd->Val == 0)
     {   // do not store 0's in cache
@@ -1396,6 +1397,7 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntrySet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* ipAd
     }
     
     arpHE = (ARP_HASH_ENTRY*)hE;
+    setEntry = false;
    
     if(hE->flags.newEntry == 0)
     {   // existent entry
@@ -1415,20 +1417,28 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntrySet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* ipAd
         if(newList != oldList)
         {   // remove from the old list
             TCPIP_Helper_ProtectedSingleListNodeRemove(oldList, (SGL_LIST_NODE*)&arpHE->next);
+            setEntry = true;
         }
         res = ARP_RES_ENTRY_EXIST;
     }
     else
     {
+        setEntry = true;
         res = ARP_RES_OK;
     }
     
     // add it to where it belongs
-    _ARPSetEntry(arpHE, newFlags, hwAdd, newList);
+    if(setEntry == true)
+    {
+        _ARPSetEntry(arpHE, newFlags, hwAdd, newList);
 
-    if(TCPIP_Helper_ProtectedSingleListCount(&pArpDcpt->permList) >= (arpMod.permQuota * pArpDcpt->hashDcpt->fullSlots)/100)
-    {   // quota exceeded
-        res = ARP_RES_PERM_QUOTA_EXCEED;
+        if(perm)
+        {
+            if(TCPIP_Helper_ProtectedSingleListCount(&pArpDcpt->permList) >= (arpMod.permQuota * pArpDcpt->hashDcpt->hEntries) / 100)
+            {   // quota exceeded
+                res = ARP_RES_PERM_QUOTA_EXCEED;
+            }
+        }
     }
 
     return res;
@@ -1612,7 +1622,7 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntryQuery(TCPIP_NET_HANDLE hNet, size_t index, TCPIP
     OA_HASH_ENTRY   *hE;
     ARP_HASH_ENTRY  *arpHE;
     ARP_CACHE_DCPT  *pArpDcpt;
-    TCPIP_MAC_ADDR        noHwAdd = {{0}};
+    TCPIP_MAC_ADDR        noHwAdd = {{0, 0, 0, 0, 0, 0}};
     TCPIP_NET_IF  *pIf;
 
     pIf = _TCPIPStackHandleToNetUp(hNet);
