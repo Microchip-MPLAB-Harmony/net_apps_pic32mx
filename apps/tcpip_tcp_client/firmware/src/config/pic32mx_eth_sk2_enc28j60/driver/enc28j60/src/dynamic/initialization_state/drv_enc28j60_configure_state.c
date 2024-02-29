@@ -10,30 +10,28 @@
   Description:
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
-/*****************************************************************************
- Copyright (C) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+/*
+Copyright (C) 2015-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
-Microchip Technology Inc. and its subsidiaries.
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
 
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*****************************************************************************/
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 // DOM-IGNORE-END
 #include "drv_enc28j60_detect_state.h"
@@ -53,7 +51,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
 
     switch (curSt->state)
     {
-		case DRV_ENC28J60_CS_SET_ERXST:
+        case DRV_ENC28J60_CS_SET_ERXST:
             ret = (*pDrvInst->busVTable->fpSfrWr16)(pDrvInst, DRV_ENC28J60_SFR_ERXSTL, pDrvInst->encMemRxStart, false);
             if(ret != 0) 
             {
@@ -63,7 +61,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
             // else retry
             break;           
 
-		case DRV_ENC28J60_CS_WAIT_ERXST:
+        case DRV_ENC28J60_CS_WAIT_ERXST:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, curSt->op, true);
             if(busRes == DRV_ENC28J60_BR_SUCCESS)
             {
@@ -76,9 +74,9 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
             // else wait some more
             break;
 
-		case DRV_ENC28J60_CS_SET_ERXRDPT:
+        case DRV_ENC28J60_CS_SET_ERXRDPT:
             // RDPT initial value is OK???
-			ret = (*pDrvInst->busVTable->fpSfrWr16)(pDrvInst, DRV_ENC28J60_SFR_ERXRDPTL, pDrvInst->encMemRxEnd, false);
+            ret = (*pDrvInst->busVTable->fpSfrWr16)(pDrvInst, DRV_ENC28J60_SFR_ERXRDPTL, pDrvInst->encMemRxEnd, false);
             if (ret != 0)
             {
                 curSt->op = ret;
@@ -87,7 +85,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
             // else retry
             break;            
 
-		case DRV_ENC28J60_CS_WAIT_ERXRDPT:
+        case DRV_ENC28J60_CS_WAIT_ERXRDPT:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, curSt->op, true);
             if(busRes == DRV_ENC28J60_BR_SUCCESS)
             {
@@ -100,7 +98,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
             // else wait some more
             break;
 
-		case DRV_ENC28J60_CS_SET_ERXND:
+        case DRV_ENC28J60_CS_SET_ERXND:
             reg.value = pDrvInst->encMemRxEnd;
             ret = (*pDrvInst->busVTable->fpSfrWr16)(pDrvInst, DRV_ENC28J60_SFR_ERXNDL, pDrvInst->encMemRxEnd, false);
             if (ret != 0)
@@ -111,7 +109,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
             // else retry
             break;
 
-		case DRV_ENC28J60_CS_WAIT_ERXND:
+        case DRV_ENC28J60_CS_WAIT_ERXND:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, curSt->op, true);
             if(busRes == DRV_ENC28J60_BR_SUCCESS)
             {
@@ -124,7 +122,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
             // else wait some more
             break;
 
-		case DRV_ENC28J60_CS_SET_ETXST:
+        case DRV_ENC28J60_CS_SET_ETXST:
             ret = (*pDrvInst->busVTable->fpSfrWr16)(pDrvInst, DRV_ENC28J60_SFR_ETXSTL, pDrvInst->encMemTxStart, false);
             if (ret != 0)
             {
@@ -200,7 +198,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
             break;
 
         case DRV_ENC28J60_CS_SET_MACON3:
-            // Pad packets to 60 bytes, add CRC, and check Type/Length field.	
+            // Pad packets to 60 bytes, add CRC, and check Type/Length field.   
             reg.value = 0x00;
             reg.macon3.FULDPX = 0; 
             reg.macon3.FRMLNEN = 1;
@@ -395,7 +393,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
                 curSt->op = ret;
                 curSt->state = DRV_ENC28J60_CS_WAIT_MAADR3;
             }
-            break;  		   
+            break;             
 
         case DRV_ENC28J60_CS_WAIT_MAADR3:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, curSt->op, true);
@@ -437,7 +435,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
             break;
 
         case DRV_ENC28J60_CS_SET_ECOCON:
-            // Disable the CLKOUT output to reduce EMI generation	
+            // Disable the CLKOUT output to reduce EMI generation   
             reg.value = 0x00;
             ret = (*pDrvInst->busVTable->fpSfrWr)(pDrvInst, DRV_ENC28J60_SFR_ECOCON, reg, false);
             if (ret != 0)
@@ -461,7 +459,7 @@ int32_t DRV_ENC28J60_ConfigStateTask(DRV_ENC28J60_DriverInfo * pDrvInst)
             break;
 
         case DRV_ENC28J60_CS_SET_PHCON2:
-            // Disable half duplex loopback in PHY.	
+            // Disable half duplex loopback in PHY. 
             phyRes = (*pDrvInst->busVTable->fpPhyWrStart)(pDrvInst, DRV_ENC28J60_PHY_SFR_PHCON2, 1);
             if(phyRes == DRV_ENC28J60_PHY_RES_PENDING)
             {
@@ -641,19 +639,19 @@ int32_t DRV_ENC28J60_ConfigStateEnter(DRV_ENC28J60_DriverInfo * pDrvInst)
 {
     pDrvInst->mainStateInfo.initInfo.configStateInfo.state = DRV_ENC28J60_CS_SET_ERXST;
 
-	pDrvInst->encRamForAppSize = 1024;
-	pDrvInst->encRamForAppStartAdr = DRV_ENC28J60_MEM_SIZE - pDrvInst->encRamForAppSize;
-	pDrvInst->encMemTxStart=pDrvInst->encRamForAppStartAdr - (1514 + 7 + 1);    // max packet + 7 bytes TSV + 1 Control Byte; Should be even!
-	pDrvInst->encMemRxStart = 0x0000;
+    pDrvInst->encRamForAppSize = 1024;
+    pDrvInst->encRamForAppStartAdr = DRV_ENC28J60_MEM_SIZE - pDrvInst->encRamForAppSize;
+    pDrvInst->encMemTxStart=pDrvInst->encRamForAppStartAdr - (1514 + 7 + 1);    // max packet + 7 bytes TSV + 1 Control Byte; Should be even!
+    pDrvInst->encMemRxStart = 0x0000;
     pDrvInst->encMemRxEnd = pDrvInst->encMemTxStart - 3;  //  2 bytes gap Tx <-> RX
 
 
-	//pDrvInst->encMemWrPtr= pDrvInst->encMemTxStart;
+    //pDrvInst->encMemWrPtr= pDrvInst->encMemTxStart;
 
-   	pDrvInst->txPtrVal = pDrvInst->encMemTxStart;
-	pDrvInst->rxPtrVal = pDrvInst->encMemRxStart;
+    pDrvInst->txPtrVal = pDrvInst->encMemTxStart;
+    pDrvInst->rxPtrVal = pDrvInst->encMemRxStart;
 
-	pDrvInst->txBufferRemaining = pDrvInst->encRamForAppStartAdr - pDrvInst->encMemTxStart ;
+    pDrvInst->txBufferRemaining = pDrvInst->encRamForAppStartAdr - pDrvInst->encMemTxStart ;
     return 0;
 }
 

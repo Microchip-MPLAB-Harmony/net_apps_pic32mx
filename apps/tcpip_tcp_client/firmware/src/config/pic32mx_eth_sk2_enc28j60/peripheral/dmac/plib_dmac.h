@@ -116,27 +116,26 @@ typedef struct
 
 } DMAC_CHANNEL_OBJECT;
 
-typedef enum
-{
-    DMAC_CHANNEL_0 = 0x0,
 
-    DMAC_CHANNEL_1 = 0x1,
+#define     DMAC_CHANNEL_0            (0x0U)
 
-    DMAC_CHANNEL_2 = 0x2,
+#define     DMAC_CHANNEL_1            (0x1U)
 
-    DMAC_CHANNEL_3 = 0x3,
+#define     DMAC_CHANNEL_2            (0x2U)
 
-    DMAC_CHANNEL_4 = 0x4,
+#define     DMAC_CHANNEL_3            (0x3U)
 
-    DMAC_CHANNEL_5 = 0x5,
+#define     DMAC_CHANNEL_4            (0x4U)
 
-    DMAC_CHANNEL_6 = 0x6,
+#define     DMAC_CHANNEL_5            (0x5U)
 
-    DMAC_CHANNEL_7 = 0x7,
+#define     DMAC_CHANNEL_6            (0x6U)
 
-    DMAC_NUMBER_OF_CHANNELS = 0x8
+#define     DMAC_CHANNEL_7            (0x7U)
 
-} DMAC_CHANNEL;
+#define     DMAC_NUMBER_OF_CHANNELS    (0x8U)
+
+typedef uint32_t DMAC_CHANNEL;
 
 typedef struct
 {

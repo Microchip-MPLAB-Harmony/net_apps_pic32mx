@@ -10,30 +10,28 @@
   Description:
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
-/*****************************************************************************
- Copyright (C) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+/*
+Copyright (C) 2015-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
-Microchip Technology Inc. and its subsidiaries.
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
 
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*****************************************************************************/
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 // DOM-IGNORE-END
 #include "drv_enc28j60_tx_packet.h"
@@ -68,7 +66,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             // else retry
             break;
 
-		case DRV_ENC28J60_TP_WAIT_TXST:
+        case DRV_ENC28J60_TP_WAIT_TXST:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, pkt->operation, true);
             if(busRes < 0)
             {   // some error; retry
@@ -83,7 +81,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             pkt->state = DRV_ENC28J60_TP_SET_ETXND;
             // no break
 
-		case DRV_ENC28J60_TP_SET_ETXND:
+        case DRV_ENC28J60_TP_SET_ETXND:
             count = 0;
 
             pkt->pDSeg = pkt->macPkt->pDSeg;
@@ -111,7 +109,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             // else retry
             break;
 
-		case DRV_ENC28J60_TP_WAIT_ETXND:
+        case DRV_ENC28J60_TP_WAIT_ETXND:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, pkt->operation, true);
             if(busRes < 0)
             {   // some error; retry
@@ -166,7 +164,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             pkt->state = DRV_ENC28J60_TP_SEND_PKT_WAIT;
             break;
 
-		case DRV_ENC28J60_TP_SEND_PKT_WAIT:
+        case DRV_ENC28J60_TP_SEND_PKT_WAIT:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, pkt->operation, true);
             if(busRes < 0)
             {   // some error; retry
@@ -195,7 +193,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             // else retry
             break;
 
-		case DRV_ENC28J60_TP_WAIT_EIR:
+        case DRV_ENC28J60_TP_WAIT_EIR:
             busRes = (*pDrvInst->busVTable->fpSfrRdResult)(pDrvInst, pkt->operation, &reg, true);
             if(busRes < 0)
             {   // some error; retry
@@ -217,7 +215,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             pkt->state = DRV_ENC28J60_TP_SET_TXRST;
             // no break
 
-		case DRV_ENC28J60_TP_SET_TXRST:
+        case DRV_ENC28J60_TP_SET_TXRST:
             reg.value = 0;
             reg.econ1.TXRST = 1;
             ret = (*pDrvInst->busVTable->fpSfrBitSet)(pDrvInst, DRV_ENC28J60_SFR_ECON1, reg, false);
@@ -229,7 +227,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             // else retry
             break;
  
-		case DRV_ENC28J60_TP_WAIT_SET_TXRST:
+        case DRV_ENC28J60_TP_WAIT_SET_TXRST:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, pkt->operation, true);
             if(busRes < 0)
             {   // some error; retry
@@ -244,7 +242,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             pkt->state = DRV_ENC28J60_TP_CLR_TXRST;
             // no break;
 
-		case DRV_ENC28J60_TP_CLR_TXRST:
+        case DRV_ENC28J60_TP_CLR_TXRST:
             reg.value = 0;
             reg.econ1.TXRST = 1;
             ret = (*pDrvInst->busVTable->fpSfrBitClr)(pDrvInst, DRV_ENC28J60_SFR_ECON1, reg, false);
@@ -256,7 +254,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             // else retry
             break;
 
-		case DRV_ENC28J60_TP_WAIT_CLR_TXRST:
+        case DRV_ENC28J60_TP_WAIT_CLR_TXRST:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, pkt->operation, true);
             if(busRes < 0)
             {   // some error; retry
@@ -271,7 +269,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             pkt->state = DRV_ENC28J60_TP_CLR_TXERIF;
             // no break
 
-		case DRV_ENC28J60_TP_CLR_TXERIF:
+        case DRV_ENC28J60_TP_CLR_TXERIF:
             reg.value = 0;
             reg.eir.TXERIF = 1;
             reg.eir.TXIF = 1;
@@ -284,7 +282,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             // else retry
             break;
 
-		case DRV_ENC28J60_TP_WAIT_CLR_TXERIF:
+        case DRV_ENC28J60_TP_WAIT_CLR_TXERIF:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, pkt->operation, true);
             if(busRes < 0)
             {   // some error; retry
@@ -318,7 +316,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             // else retry
             break;
 
-		case DRV_ENC28J60_TP_WAIT_PKT_TX:
+        case DRV_ENC28J60_TP_WAIT_PKT_TX:
             busRes = (*pDrvInst->busVTable->fpOpResult)(pDrvInst, pkt->operation, true);
             if(busRes < 0)
             {   // some error; retry
@@ -334,10 +332,10 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             pkt->state = DRV_ENC28J60_TP_WAIT_FOR_COMPLETE;
             break;
 
-		case DRV_ENC28J60_TP_WAIT_FOR_COMPLETE:
+        case DRV_ENC28J60_TP_WAIT_FOR_COMPLETE:
             break;
 
-		case DRV_ENC28J60_TP_RST_EIR:
+        case DRV_ENC28J60_TP_RST_EIR:
             if(pkt->macPkt != NULL)
             {   // update the packet status
                 if (!pDrvInst->mainStateInfo.runningInfo.chkStaInfo.linkState)
@@ -363,7 +361,7 @@ int32_t DRV_ENC28J60_TxPacketTask(struct _DRV_ENC28J60_DriverInfo * pDrvInst, DR
             pkt->state = DRV_ENC28J60_TP_CLR_EIR;
             // no break
 
-		case DRV_ENC28J60_TP_CLR_EIR:
+        case DRV_ENC28J60_TP_CLR_EIR:
             reg.value = 0;
             reg.eir.TXIF = 1;
             reg.eir.TXERIF = 1;

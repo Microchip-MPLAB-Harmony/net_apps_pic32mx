@@ -10,30 +10,28 @@
   Description:
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
-/*****************************************************************************
- Copyright (C) 2015-2020 Microchip Technology Inc. and its subsidiaries.
+/*
+Copyright (C) 2015-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
-Microchip Technology Inc. and its subsidiaries.
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
 
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*****************************************************************************/
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 // DOM-IGNORE-END
 #if !defined(_DRV_ENC28J60_BUS_H_)
@@ -70,13 +68,13 @@ typedef enum
     DRV_ENC28J60_PTR_ETXNDH,
     DRV_ENC28J60_PTR_ERXSTL,
     DRV_ENC28J60_PTR_ERXSTH,    
-	DRV_ENC28J60_PTR_ERXNDL,
+    DRV_ENC28J60_PTR_ERXNDL,
     DRV_ENC28J60_PTR_ERXNDH,
     DRV_ENC28J60_PTR_ERXRDPTL,
     DRV_ENC28J60_PTR_ERXRDPTH,
     DRV_ENC28J60_PTR_ERXWRPTL,
     DRV_ENC28J60_PTR_ERXWRPTH,
-	DRV_ENC28J60_PTR_EDMASTL,
+    DRV_ENC28J60_PTR_EDMASTL,
     DRV_ENC28J60_PTR_EDMASTH,
     DRV_ENC28J60_PTR_EDMANDL,
     DRV_ENC28J60_PTR_EDMANDH,
@@ -104,7 +102,7 @@ typedef enum
     The bus has to have been initialized first.
 
     Parameters:
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns
         Negative if error
@@ -125,7 +123,7 @@ typedef int32_t (*DRV_ENC28J60_OpenInterface)(struct _DRV_ENC28J60_DriverInfo * 
     The bus has to have been initialized first.
     
     Parameters:
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns:
         None
@@ -145,7 +143,7 @@ typedef void (*DRV_ENC28J60_CloseInterface)( struct _DRV_ENC28J60_DriverInfo *  
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
         handle - Handle created by the operation.
         ack - if the operation handle is to be flagged as completed and removed
               if false, this operation will be kept valid and status/result could be polled again
@@ -153,9 +151,9 @@ typedef void (*DRV_ENC28J60_CloseInterface)( struct _DRV_ENC28J60_DriverInfo *  
               A call with ack set is needed when the user is done with this operation. 
 
     Returns
-        DRV_ENC28J60_BR_SUCCESS â€“ if the operation was successful
-        DRV_ENC28J60_BR_PENDING â€“ if the operation is still pending
-        DRV_ENC28J60_BR_ERROR â€“ if there was an error in the operation
+        DRV_ENC28J60_BR_SUCCESS â?? if the operation was successful
+        DRV_ENC28J60_BR_PENDING â?? if the operation is still pending
+        DRV_ENC28J60_BR_ERROR â?? if there was an error in the operation
 */
 typedef DRV_ENC28J60_BUS_RESULT (*DRV_ENC28J60_OperationResult)( struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, uintptr_t  handle, bool ack );
 
@@ -173,17 +171,17 @@ typedef DRV_ENC28J60_BUS_RESULT (*DRV_ENC28J60_OperationResult)( struct _DRV_ENC
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInstance â€“ The driver instance
-        reg â€“ The Special Function Register to write to.
-        Value â€“ the value to write into the register
+        pDrvInstance â?? The driver instance
+        reg â?? The Special Function Register to write to.
+        Value â?? the value to write into the register
         autoAck - if the SPI operation, once completed, can acknowledge itself
                   i.e. investigation of the operation result is not needed
                   If autoAck == false, then the DRV_ENC28J60_OperationResult is needed
                   and it will acknowledge the operation completion 
 
     Returns:
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 
     Remarks:
         The autoAck behavior is valid for all SPI functions that take this parameter.
@@ -208,12 +206,12 @@ typedef uintptr_t (*DRV_ENC28J60_SfrWrite16)(struct _DRV_ENC28J60_DriverInfo *  
     The bus had to have been initialized first.
     
     Parameters:
-        pDrvInstance â€“ The driver instance
-        reg â€“ The Special Function Register to write to.
+        pDrvInstance â?? The driver instance
+        reg â?? The Special Function Register to write to.
 
     Returns
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_SfrReadStart)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, DRV_ENC28J60_SFR_MAP  reg, bool autoAck);
 
@@ -234,17 +232,17 @@ typedef uintptr_t (*DRV_ENC28J60_SfrRead16Start)(struct _DRV_ENC28J60_DriverInfo
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInstance â€“ The driver instance
-        handle â€“ the handle from the read start operation
-        value â€“ where to put the results of the operation
+        pDrvInstance â?? The driver instance
+        handle â?? the handle from the read start operation
+        value â?? where to put the results of the operation
         ack - if the operation handle is to be flagged as completed and removed
               if false, this operation will be kept valid and status/result could be polled again
               A call with ack set is needed when the user is done with this operation. 
 
     Returns
-        DRV_ENC28J60_BR_SUCCESS â€“ if the operation was successful
-        DRV_ENC28J60_BR_PENDING â€“ if the operation is still pending
-        DRV_ENC28J60_BR_ERROR â€“ if there was an error in the operation
+        DRV_ENC28J60_BR_SUCCESS â?? if the operation was successful
+        DRV_ENC28J60_BR_PENDING â?? if the operation is still pending
+        DRV_ENC28J60_BR_ERROR â?? if there was an error in the operation
 */
 typedef DRV_ENC28J60_BUS_RESULT (*DRV_ENC28J60_SfrReadResult)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, uintptr_t  handle, DRV_ENC28J60_RegUnion *  value, bool ack);
 
@@ -266,13 +264,13 @@ typedef DRV_ENC28J60_BUS_RESULT (*DRV_ENC28J60_SfrRead16Result)(struct _DRV_ENC2
     The bus had to have been initialized first.
     
     Parameters
-        pDrvInstance â€“ The driver instance
-        reg â€“ The Special Function Register to write to.
-        Value â€“ The bits to set in the register.
+        pDrvInstance â?? The driver instance
+        reg â?? The Special Function Register to write to.
+        Value â?? The bits to set in the register.
 
     Returns
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_SfrBitSet)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, DRV_ENC28J60_SFR_MAP  reg, DRV_ENC28J60_RegUnion  value, bool autoAck);
 
@@ -291,13 +289,13 @@ typedef uintptr_t (*DRV_ENC28J60_SfrBitSet)(struct _DRV_ENC28J60_DriverInfo *  p
     The bus had to have been initialized first.
     
     Parameters
-        pDrvInstance â€“ The driver instance
-        reg â€“ The Special Function Register to write to.
-        Value â€“ The bits to clear in the register.
+        pDrvInstance â?? The driver instance
+        reg â?? The Special Function Register to write to.
+        Value â?? The bits to clear in the register.
 
     Returns
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_SfrBitClear)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, DRV_ENC28J60_SFR_MAP  reg, DRV_ENC28J60_RegUnion  value, bool autoAck);
 
@@ -314,11 +312,11 @@ typedef uintptr_t (*DRV_ENC28J60_SfrBitClear)(struct _DRV_ENC28J60_DriverInfo * 
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns:
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_SystemReset)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -335,11 +333,11 @@ typedef uintptr_t (*DRV_ENC28J60_SystemReset)(struct _DRV_ENC28J60_DriverInfo * 
     The bus had to have been initialized first.
     
     Parameters
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_EnableRX)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -356,11 +354,11 @@ typedef uintptr_t (*DRV_ENC28J60_EnableRX)(struct _DRV_ENC28J60_DriverInfo *  pD
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_DisableRX)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -378,11 +376,11 @@ typedef uintptr_t (*DRV_ENC28J60_DisableRX)(struct _DRV_ENC28J60_DriverInfo *  p
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_DecrPktCtr)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -399,11 +397,11 @@ typedef uintptr_t (*DRV_ENC28J60_DecrPktCtr)(struct _DRV_ENC28J60_DriverInfo *  
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_EnableInterrupts)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -420,11 +418,11 @@ typedef uintptr_t (*DRV_ENC28J60_EnableInterrupts)(struct _DRV_ENC28J60_DriverIn
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns:
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_DisableInterrupts)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -441,11 +439,11 @@ typedef uintptr_t (*DRV_ENC28J60_DisableInterrupts)(struct _DRV_ENC28J60_DriverI
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_FlowCtrlDisable)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -462,11 +460,11 @@ typedef uintptr_t (*DRV_ENC28J60_FlowCtrlDisable)(struct _DRV_ENC28J60_DriverInf
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_FlowCtrlSingle)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -483,11 +481,11 @@ typedef uintptr_t (*DRV_ENC28J60_FlowCtrlSingle)(struct _DRV_ENC28J60_DriverInfo
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns:
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_FlowCtrlMult)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -504,11 +502,11 @@ typedef uintptr_t (*DRV_ENC28J60_FlowCtrlMult)(struct _DRV_ENC28J60_DriverInfo *
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInstance â€“ The driver instance
+        pDrvInstance â?? The driver instance
 
     Returns:
-        NULL â€“ On Error
-        Valid Handle â€“ on success
+        NULL â?? On Error
+        Valid Handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_FlowCtrClear)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, bool autoAck );
 
@@ -690,22 +688,22 @@ typedef TCPIP_MAC_RES (*DRV_ENC28J60_WritePacket)(struct _DRV_ENC28J60_DriverInf
     some space before the actual pointer in the packet.  For the PIC32 Internal 
     MAC this is two bytes.  This data is used by the MAC for its own purposes.  
     n the case of the ENC28J60 only 1 byte is needed for SPI. The buffer that 
-	is passed in is the start of the data segment, and this function assumes 
-	there is some allocated space before the pointer.  The datasize is the size
-	of the data portion, not the total size of the buffer.
+    is passed in is the start of the data segment, and this function assumes 
+    there is some allocated space before the pointer.  The datasize is the size
+    of the data portion, not the total size of the buffer.
 
     Preconditions:
     The bus had to have been initialized first.
     
     Parameters
-        pDrvInstance â€“ The driver instance
-        reg â€“ the register to write to
-        buffer â€“ the location of the buffer to write
-        dataSize â€“ the size of the data to read.
+        pDrvInstance â?? The driver instance
+        reg â?? the register to write to
+        buffer â?? the location of the buffer to write
+        dataSize â?? the size of the data to read.
 
     Returns:
-        0 â€“ on error
-        Valid handle â€“ on success
+        0 â?? on error
+        Valid handle â?? on success
 */
 typedef uintptr_t (*DRV_ENC28J60_ReadDataStart)(struct _DRV_ENC28J60_DriverInfo *  pDrvInstance, uint8_t *  buffer, uint16_t  dataSize, bool autoAck);
 
