@@ -1,0 +1,592 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us" data-whc_version="24.1">
+    <head><link rel="shortcut icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><link rel="icon" href="oxygen-webhelp\template\resources/images/favicon.ico"/><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="description" content="This application demonstrates usage of MPLAB Harmony TCP API to implement a TCP client that establishes TCP/IP connection to a TCP server. Description The TCP/IP TCP Client application is based on ..."/><meta name="copyright" content="(C) Copyright 2024"/><meta name="generator" content="DITA-OT"/><title>1.1 TCP/IP TCP Client</title><!--  Generated with Oxygen version 24.1, build number 2022062014.  --><meta name="wh-path2root" content=""/><meta name="wh-toc-id" content="GUID-BE21D51D-4843-446B-8B37-0D3835848698-d249e19"/><meta name="wh-source-relpath" content="GUID-BE21D51D-4843-446B-8B37-0D3835848698.xml"/><meta name="wh-out-relpath" content="GUID-BE21D51D-4843-446B-8B37-0D3835848698.html"/>
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/lib/bootstrap/css/bootstrap.min.css"/>
+    
+    <link rel="stylesheet" href="./oxygen-webhelp/lib/jquery-ui/jquery-ui.min.css"/>
+    
+    <!-- Template default styles  -->
+    <link rel="stylesheet" type="text/css" href="./oxygen-webhelp/app/topic-page.css?buildId=2022062014"/>
+    
+    
+    <script src="./oxygen-webhelp/lib/jquery/jquery-3.5.1.min.js"></script>
+    
+    <script data-main="./oxygen-webhelp/app/topic-page.js" src="./oxygen-webhelp/lib/requirejs/require.js"></script>
+<link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/microchip.css?buildId=2022062014"/><link rel="stylesheet" type="text/css" href="oxygen-webhelp/template/notes.css?buildId=2022062014"/>
+<script src="mchp-context-help.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async="" type="text/javascript"></script>
+    <script src="https://assets.adobedtm.com/6a72a357eb48/a636c708c7fe/launch-0b0023397020.min.js"></script><!-- Adobe Analytics -->
+</head>
+
+    <body id="GUID-BE21D51D-4843-446B-8B37-0D3835848698" class="wh_topic_page frmBody">
+        <a href="#wh_topic_body" class="sr-only sr-only-focusable">
+            Jump to main content
+        </a>
+        
+        
+        
+        
+        <header class="navbar navbar-default wh_header">
+    <div class="container-fluid">
+        <div class="wh_header_flex_container navbar-nav navbar-expand-md navbar-dark">
+            <div class="wh_logo_and_publication_title_container">
+                <div class="wh_logo_and_publication_title">
+                    
+                    <a href="index.html" class=" wh_logo d-none d-sm-block "><img src="oxygen-webhelp\template\resources/images/microchip.png" alt="MPLAB® Harmony 3 TCP/IP Application for PIC32MX Family &#xA;    "/></a>
+                    <div class=" wh_publication_title "><a href="index.html">MPLAB® Harmony 3 TCP/IP Application for PIC32MX Family 
+    </a></div>
+                    
+                </div>
+                
+                
+            </div>
+
+            <div class="wh_top_menu_and_indexterms_link collapse navbar-collapse" id="wh_top_menu_and_indexterms_link">
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</header>
+        
+        
+         
+        
+        <div class=" wh_search_input navbar-form wh_topic_page_search search " role="form">
+            
+            
+            
+            <form id="searchForm" method="get" role="search" action="search.html"><div class="d-flex justify-contents-around"><div class="flex-grow-1"></div><div class="position-relative flex-grow-1"><input type="search" placeholder="Search " class="wh_search_textfield" id="textToSearch" name="searchQuery" aria-label="Search query" required="required"/><button type="submit" class="wh_search_button" aria-label="Search"><span class="search_input_text">Search</span></button></div><div class="align-self-center flex-grow-1 ml-2"></div></div></form>
+            
+            <div class="mchp-color-stripe-grid-container">
+  <div class="mchp-main-bar mchp-orange-bar"></div>
+  <div class="mchp-main-bar mchp-blue-bar"></div>
+  <div class="mchp-main-bar mchp-green-bar"></div>
+</div>
+            
+        </div>
+        
+        <div class="container-fluid" id="wh_topic_container">
+            <div class="row">
+
+                <nav class="wh_tools d-print-none navbar-expand-md" aria-label="Tools">
+                    
+                    <div data-tooltip-position="bottom" class=" wh_breadcrumb "><ol class="d-print-none"><li><span class="home"><a href="index.html"><span>Home</span></a></span></li><li><div class="topicref" data-id="GUID-25FAC7AE-3FC1-4C1B-88B6-B195209DD29B"><div class="title"><a href="GUID-25FAC7AE-3FC1-4C1B-88B6-B195209DD29B.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+Harmony 3 TCP/IP Application for PIC32MX Family</a></div></div></li><li class="active"><div class="topicref" data-id="GUID-BE21D51D-4843-446B-8B37-0D3835848698"><div class="title"><a href="GUID-BE21D51D-4843-446B-8B37-0D3835848698.html"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1</ph>
+TCP/IP TCP Client</a></div></div></li></ol></div>
+                    
+                    
+                    
+                    <div class="wh_right_tools">
+                        <button class="wh_hide_highlight" aria-label="Toggle search highlights" title="Toggle search highlights"></button>
+                        <button class="webhelp_expand_collapse_sections" data-next-state="collapsed" aria-label="Collapse sections" title="Collapse sections"></button>
+                        
+                        
+                        
+                        
+                        <div class=" wh_print_link print d-none d-md-inline-block "><button onClick="window.print()" title="Print this page" aria-label="Print this page"></button></div>
+                        
+                        <button type="button" id="wh_toc_button" class="custom-toggler navbar-toggler collapsed wh_toggle_button navbar-light" aria-expanded="false" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    
+                </nav>
+            </div>
+            
+            <div class="row" style="margin-top: -1em;"><div class="col-lg-7 col-md-7 col-sm-12 offset-lg-3 offset-md-3 text-right border-bottom mb-1"><h2 class="text-dark header_title">
+    </h2></div></div>
+            
+            
+            <div class="wh_content_area">
+                <div class="row">
+                    
+                        <nav id="wh_publication_toc" class="col-lg-3 col-md-3 col-sm-12 d-md-block d-none d-print-none" aria-label="Table of Contents Container">
+                            <div id="wh_publication_toc_content">
+		                        
+                            	<div class=" wh_publication_toc " data-tooltip-position="right"><span class="expand-button-action-labels"><span id="button-expand-action" role="button" aria-label="Expand"></span><span id="button-collapse-action" role="button" aria-label="Collapse"></span><span id="button-pending-action" role="button" aria-label="Pending"></span></span><ul role="tree" aria-label="Table of Contents"><li role="treeitem" aria-expanded="true"><div data-tocid="GUID-25FAC7AE-3FC1-4C1B-88B6-B195209DD29B-d249e11" class="topicref" data-id="GUID-25FAC7AE-3FC1-4C1B-88B6-B195209DD29B" data-state="expanded"><span role="button" tabindex="0" aria-labelledby="button-collapse-action GUID-25FAC7AE-3FC1-4C1B-88B6-B195209DD29B-d249e11-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-25FAC7AE-3FC1-4C1B-88B6-B195209DD29B.html" id="GUID-25FAC7AE-3FC1-4C1B-88B6-B195209DD29B-d249e11-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1</ph>
+Harmony 3 TCP/IP Application for PIC32MX Family</a></div></div><ul role="group" class="navbar-nav nav-list"><li role="treeitem" class="active"><div data-tocid="GUID-BE21D51D-4843-446B-8B37-0D3835848698-d249e19" class="topicref" data-id="GUID-BE21D51D-4843-446B-8B37-0D3835848698" data-state="leaf"><span role="button" class="wh-expand-btn"></span><div class="title"><a href="GUID-BE21D51D-4843-446B-8B37-0D3835848698.html" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698-d249e19-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">1.1</ph>
+TCP/IP TCP Client</a></div></div></li></ul></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-F1A8FC97-AF0E-4957-9E2E-FBB5502EFFCD-d249e27" class="topicref" data-id="GUID-F1A8FC97-AF0E-4957-9E2E-FBB5502EFFCD" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-F1A8FC97-AF0E-4957-9E2E-FBB5502EFFCD-d249e27-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-F1A8FC97-AF0E-4957-9E2E-FBB5502EFFCD.html" id="GUID-F1A8FC97-AF0E-4957-9E2E-FBB5502EFFCD-d249e27-link"><ph xmlns="http://www.oxygenxml.com/ns/webhelp/toc">2</ph>
+Appendix</a></div></div></li><li role="treeitem" aria-expanded="false"><div data-tocid="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d249e51" class="topicref backmatter backmatter_parent" data-id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B" data-state="not-ready"><span role="button" tabindex="0" aria-labelledby="button-expand-action GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d249e51-link" class="wh-expand-btn"></span><div class="title"><a href="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B.html" id="GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B-d249e51-link">Microchip Information</a></div></div></li></ul></div>
+		                        
+                            </div>
+                        </nav>
+                    
+                    
+                    <div class="col-lg-7 col-md-9 col-sm-12" id="wh_topic_body">
+                        <button id="wh_close_publication_toc_button" class="close-toc-button d-none" aria-label="Toggle publishing table of content" aria-controls="wh_publication_toc" aria-expanded="true">
+                            <span class="close-toc-icon-container">
+                                <span class="close-toc-icon"></span>     
+                            </span>
+                        </button>
+                        <button id="wh_close_topic_toc_button" class="close-toc-button d-none" aria-label="Toggle topic table of content" aria-controls="wh_topic_toc" aria-expanded="true">
+                            <span class="close-toc-icon-container">
+                                <span class="close-toc-icon"></span>     
+                            </span>
+                        </button>
+                        
+                        <div class=" wh_topic_content body "><main role="main"><article role="article" aria-labelledby="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-33B71564-7438-4D9A-B596-F9E57F562A88">
+<h1 class="- topic/title title topictitle1" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-33B71564-7438-4D9A-B596-F9E57F562A88" style="">1.1 TCP/IP TCP Client</h1>
+    <div class="- topic/body body">
+        <p class="- topic/p p">This application demonstrates usage of MPLAB Harmony TCP API to implement a TCP client
+            that establishes TCP/IP connection to a TCP server.</p>
+        <section class="- topic/section section" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_KL1_1Y5_HWB" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_KL1_1Y5_HWB"><h2 class="- topic/title title sectiontitle">Description</h2>
+            
+            <p class="- topic/p p">The TCP/IP TCP Client application is based on MPLAB® Harmony 3 TCP/IP Stack. </p>
+            <p class="- topic/p p">The <a class="- topic/xref xref" href="https://microchip-mplab-harmony.github.io/net/index.html" target="_blank" rel="external noopener">Harmony TCP/IP stack</a> is a collection of different network protocols. </p>
+            <p class="- topic/p p">The source files of Harmony 3 TCP/IP stack is available <a class="- topic/xref xref" href="https://github.com/Microchip-MPLAB-Harmony/net" target="_blank" rel="external noopener">here</a>.</p>
+            <p class="- topic/p p">The demo is created with <a class="- topic/xref xref" href="GUID-B7E0C911-C58F-49A8-9B8C-D5A621EF5EEA.html">MPLAB X IDE</a> and <a class="- topic/xref xref" href="GUID-71E6F246-9C3D-4750-9819-1A6928A386C5.html">MCC</a>
+                plugin.</p>
+            <p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">MCC Project Graph - TCP/IP TCP Client</strong></p>
+            <p class="- topic/p p">The following Project Graph shows the Harmony components included in the TCP/IP TCP
+                Client demo application.</p>
+            <p class="- topic/p p">The root layer project shows that UART2 peripheral is selected to do read and write
+                operation for TCP/IP commands.</p>
+            <p class="- topic/p p">This is the basic configuration with SYS_CONSOLE, SYS_DEBUG and SYS_COMMAND modules.
+                These modules are required for TCP/IP command execution.</p>
+            <figure class="- topic/fig fig fignone" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__FIG_KQG_YZ5_HWB" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__FIG_KQG_YZ5_HWB"><figcaption class="- topic/title title figcap"><span class="figtitleprefix fig--title-label">Figure 1-1. <span id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-AD4B98F8-CF07-42BE-88E5-0BA246BED24E" class="fig--title">Project Graph -  TCP/IP TCP
+                    Client demo with Internal ETHMAC </span></span></figcaption>
+                
+                <div class=""><img class="- topic/image image" src="GUID-35AAC719-BD03-44DC-ACB0-6DC5BA0ABDAA-high.png"/></div>
+            </figure>
+            <p class="- topic/p p">TCP sockets calculate the ISN using the <strong class="+ topic/ph hi-d/b ph b">wolfSSL crypto library</strong>.</p>
+            <p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">FreeRTOS</strong> component is required for RTOS application. For bare-metal (non-RTOS)
+                    <strong class="+ topic/ph hi-d/b ph b">FreeRTOS</strong> component should not be selected.</p>
+            <p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">NOTE</strong> - <strong class="+ topic/ph hi-d/b ph b">TCPIP Ethernet Priority</strong> should be lower compared to FreeRTOS
+                module priority number. PIC32MX low the priority number = low priority.</p>
+            <p class="- topic/p p"> </p>
+            <figure class="- topic/fig fig fignone" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-CBFD419C-0384-497C-B859-D800BCA575C6" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-CBFD419C-0384-497C-B859-D800BCA575C6"><figcaption class="- topic/title title figcap"><span class="figtitleprefix fig--title-label">Figure 1-2. <span id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-9255B2F8-0280-493F-A815-EEA836496AE7" class="fig--title">Project Graph -  TCP/IP TCP Client demo with External MAC Daughter
+                    Board</span></span></figcaption>
+                
+                <p class="- topic/p p">Both ENC28J60 and ENCX24J600 daughter board use SPI driver and SPI1 peripheral to
+                    communicate with the PIC32MX controller.</p>
+                <div class=""><img class="- topic/image image" src="GUID-DE1EB7B2-3A6C-45D3-A252-91CDE75C9AB1-high.png"/></div>
+            </figure>
+            <p class="- topic/p p">TCP sockets calculate the ISN using the <strong class="+ topic/ph hi-d/b ph b">wolfSSL crypto library</strong>.</p>
+            <p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">TCP/IP Configuration - TCP/IP TCP Client</strong></p>
+            <p class="- topic/p p">The TCP/IP modules enabled for the demo is shown in the <strong class="+ topic/ph hi-d/b ph b">TCP/IP Configuration</strong>
+                Overview </p>
+            <p class="- topic/p p">More details of TCP/IP Configuration plugin is available <a class="- topic/xref xref" href="https://microchip-mplab-harmony.github.io/net/GUID-C2EA1D23-D9AF-49CB-85C6-1A4206586850.html" target="_blank" rel="external noopener">here</a></p>
+            <figure class="- topic/fig fig fignone" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__FIG_LNT_XCV_HWB" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__FIG_LNT_XCV_HWB"><figcaption class="- topic/title title figcap"><span class="figtitleprefix fig--title-label">Figure 1-3. <span id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-13343AE2-DC34-4987-9C06-E110D17B6242" class="fig--title">TCP/IP Configuration - PIC32MX
+                    Ethernet Starter Kit II </span></span></figcaption>
+                
+                <div class=""><img class="- topic/image image" src="GUID-CF199403-450E-4D1C-A5EB-BA8CD8D838F8-high.png"/></div>
+            </figure>
+            <ul class="- topic/ul ul" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__OL_KYP_4GV_HWB" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__OL_KYP_4GV_HWB">
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-3DAB51AB-6BAF-436C-B66C-51EEBDB33120" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-3DAB51AB-6BAF-436C-B66C-51EEBDB33120"><strong class="+ topic/ph hi-d/b ph b">TCP/IP Application Layer
+                        Modules</strong><ul class="- topic/ul ul" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__UL_NF2_55C_3WB" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__UL_NF2_55C_3WB">
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-F0204DE9-A020-47C3-B967-72F618BFBB59" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-F0204DE9-A020-47C3-B967-72F618BFBB59"><em class="+ topic/ph hi-d/i ph i"><strong class="+ topic/ph hi-d/b ph b">ANNOUNCE</strong></em> to discover the Microchip devices within a local
+                            network.</li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-E3C33BE3-E02E-4E6A-AA8A-1210827BDC77" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-E3C33BE3-E02E-4E6A-AA8A-1210827BDC77"><strong class="+ topic/ph hi-d/b ph b"><em class="+ topic/ph hi-d/i ph i">DHCP Client</em></strong>
+                            to discover the IPv4 address from the nearest DHCP Server.</li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-6DB140CF-830F-4915-9244-F2F39CA5B3FA" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-6DB140CF-830F-4915-9244-F2F39CA5B3FA"><em class="+ topic/ph hi-d/i ph i"><strong class="+ topic/ph hi-d/b ph b">DNS Client
+                            </strong></em>provides DNS resolution capabilities to the stack. </li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-43FA3C74-EE73-404B-88D3-C1664D35D7E1" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-43FA3C74-EE73-404B-88D3-C1664D35D7E1"><strong class="+ topic/ph hi-d/b ph b"><em class="+ topic/ph hi-d/i ph i">NBNS</em></strong> NetBIOS Name Service protocol associates host names
+                            with IP addresses. This assign of human-name host names to access boards
+                            on the same subnet.</li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-ABF43F97-B897-4FC0-A107-B64FBFE0F440" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-ABF43F97-B897-4FC0-A107-B64FBFE0F440"><strong class="+ topic/ph hi-d/b ph b"><em class="+ topic/ph hi-d/i ph i">SNTP</em></strong> Simple Network Time Protocol updates its internal
+                            time periodically using a pool of public global time servers.</li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-880A0C23-C366-4FE2-8CE6-C47D5089C892" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-880A0C23-C366-4FE2-8CE6-C47D5089C892"><strong class="+ topic/ph hi-d/b ph b"><em class="+ topic/ph hi-d/i ph i">TELNET</em></strong> provides bidirectional, interactive communication
+                            between two nodes on the Internet or on a Local Area Network.</li>
+                    </ul></li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-7A8C60DF-0464-46F8-9839-C176C1C0F55E" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-7A8C60DF-0464-46F8-9839-C176C1C0F55E"><strong class="+ topic/ph hi-d/b ph b">TCP/IP Data Link Layer</strong><ol class="- topic/ol ol" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-C85DBD1E-20BF-4A82-B68B-D22CE85E22C2" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-C85DBD1E-20BF-4A82-B68B-D22CE85E22C2">
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-BF39336D-0DBB-4595-84EB-C7A7CC2972A5" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-BF39336D-0DBB-4595-84EB-C7A7CC2972A5"><strong class="+ topic/ph hi-d/b ph b">Internal Ethernet
+                                Driver (ETHMAC)</strong><p class="- topic/p p">Internal Ethernet Driver (ETHMAC) is enabled
+                                with the external <strong class="+ topic/ph hi-d/b ph b">LAN8740 PHY driver</strong> library. The MIIM Driver
+                                supports asynchronous read/write and scan operations for accessing
+                                the external PHY registers and notification when MIIM operations
+                                have completed.</p><div class=""><img class="- topic/image image" src="GUID-133267BA-972C-4B63-ABC7-C7732717E7F5-high.png"/></div></li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-1DF89AB2-D291-40F9-833F-D5805374ACA1" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-1DF89AB2-D291-40F9-833F-D5805374ACA1"><strong class="+ topic/ph hi-d/b ph b">External ENC28J60
+                                Ethernet Driver</strong><p class="- topic/p p">The ENC28J60 driver module selected for the
+                                external ethernet mac ENC28J60 device. For high MAC TX and RX
+                                performance DRV_ENC28J60_MAC_TX_DESCRIPTORS and
+                                DRV_ENC28J60_MAC_RX_DESCRIPTORS can be configured respectively more
+                                than the default descriptor value size "2".</p><p class="- topic/p p">Refer below for
+                                the components selected in the Data Link Layer of the TCP/IP
+                                stack</p><div class=""><img class="- topic/image image" src="GUID-B5D70AE5-25AB-4A8B-B01A-06E2AC539283-high.png"/></div><p class="- topic/p p">GPIO RD9 pin is configured for SPI chip select.</p><div class=""><img class="- topic/image image" src="GUID-D297C712-C144-4C3B-A3B2-6EC762036A5C-high.png"/></div></li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-3AA793CE-9F59-4B7F-B4A5-93C0DC0983D2" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-3AA793CE-9F59-4B7F-B4A5-93C0DC0983D2"><strong class="+ topic/ph hi-d/b ph b">External ENCX24J600
+                                Ethernet Driver</strong><p class="- topic/p p">The ENCX24J600 driver module selected for the
+                                external ethernet mac ENCX24J600 device. For high MAC TX and RX
+                                performance DRV_ENCX24J600_MAC_TX_DESCRIPTORS and
+                                DRV_ENCX24J600_MAC_RX_DESCRIPTORS can be configured respectively
+                                more than the default descriptor value size "3".</p><p class="- topic/p p">Refer below
+                                for the components selected in the Data Link Layer of the TCP/IP
+                                stack</p><div class=""><img class="- topic/image image" src="GUID-3787D224-0E95-44A8-A518-20A26700E3FE-high.png"/></div><p class="- topic/p p">GPIO RD9 pin is configured for SPI chip select.</p><div class=""><img class="- topic/image image" src="GUID-13E03C63-C581-4B6E-99B3-C2DA28B4969D-high.png"/></div></li>
+                    </ol></li>
+            </ul>
+            <p class="- topic/p p"></p>
+        </section>
+        <section class="- topic/section section" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_KVV_V3V_HWB" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_KVV_V3V_HWB"><h2 class="- topic/title title sectiontitle">Downloading and Building the
+                application</h2>
+            
+            <p class="- topic/p p">To clone or download this application from Github, go to the <a class="- topic/xref xref" href="https://github.com/Microchip-MPLAB-Harmony/net_apps_pic32mx" target="_blank" rel="external noopener">main page of this repository</a> and then click Clone button
+                to clone this repository or download as zip file. </p>
+            <p class="- topic/p p">This content can also be downloaded using content manager by following these <a class="- topic/xref xref" href="https://github.com/Microchip-MPLAB-Harmony/contentmanager/wiki" target="_blank" rel="external noopener">instructions</a>.</p>
+            <p class="- topic/p p">Path of the application within the repository is
+                    <strong class="+ topic/ph hi-d/b ph b">apps\tcpip_tcp_client\firmware</strong>
+            </p>
+            <p class="- topic/p p">To build the application, refer to the following list of demo configurations and open
+                the project using MPLAB X IDE.</p>
+            <div class="table-container"><table class="- topic/table table frame-all" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB" data-cols="4"><caption class="- topic/title title tablecap" data-caption-side="top" data-is-repeated="true"><span class="table--title-label"><span class="table--title-label">Table 1-2. </span></span><span class="table--title" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-C881DC36-49B7-493A-9FFF-2260658092EF">Demo Configurations</span></caption><colgroup><col style="width:25.047438330170777%"/><col style="width:18.975332068311193%"/><col style="width:24.288425047438327%"/><col style="width:31.68880455407969%"/></colgroup><thead class="- topic/thead thead">
+                        <tr class="- topic/row">
+                            <th class="- topic/entry entry colsep-1 rowsep-1" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__1">Project Name</th>
+                            <th class="- topic/entry entry align-center colsep-1 rowsep-1" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__2">Target Device</th>
+                            <th class="- topic/entry entry align-center colsep-1 rowsep-1" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__3">Development Board</th>
+                            <th class="- topic/entry entry align-center colsep-0 rowsep-1" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__4">Description</th>
+                        </tr>
+                    </thead><tbody class="- topic/tbody tbody">
+                        <tr class="- topic/row">
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__1">pic32mx_eth_sk2.X</td>
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__2">PIC32MX795F512L</td>
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__3">PIC32MX Ethernet Starter Kit II</td>
+                            <td class="- topic/entry entry align-center colsep-0 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__4">TCP/IP TCP Client with LAN8740 PHY Daughter Board
+                                - Bare Metal</td>
+                        </tr>
+                        <tr class="- topic/row">
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__1">pic32mx_eth_sk2_enc28j60.X</td>
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__2">PIC32MX795F512L</td>
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__3">PIC32MX Ethernet Starter Kit II + External
+                                Ethernet Controller ENC28J60 + I/O Expansion Board</td>
+                            <td class="- topic/entry entry align-center colsep-0 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__4">TCP/IP TCP Client with External Ethernet
+                                Controller ENC28J60 - Bare Metal</td>
+                        </tr>
+                        <tr class="- topic/row">
+                            <td class="- topic/entry entry colsep-1 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__1">pic32mx_eth_sk2_encx24j600.X</td>
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__2">PIC32MX795F512L</td>
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__3">PIC32MX Ethernet Starter Kit II + External
+                                Ethernet Controller ENCX24J600 + I/O Expansion Board</td>
+                            <td class="- topic/entry entry align-center colsep-0 rowsep-1" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__4">TCP/IP TCP Client with External Ethernet
+                                Controller ENCX24J600 - Bare Metal</td>
+                        </tr>
+                        <tr class="- topic/row">
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-0" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__1">pic32mx_eth_sk2_freertos.X</td>
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-0" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__2">PIC32MX795F512L</td>
+                            <td class="- topic/entry entry align-center colsep-1 rowsep-0" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__3">PIC32MX Ethernet Starter Kit II</td>
+                            <td class="- topic/entry entry align-center colsep-0 rowsep-0" headers="GUID-BE21D51D-4843-446B-8B37-0D3835848698__TABLE_YZW_QJV_HWB__entry__4">TCP/IP TCP Client with LAN8740 PHY Daughter Board
+                                - FreeRTOS</td>
+                        </tr>
+                    </tbody></table></div>
+        </section>
+        <section class="- topic/section section" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-72DF07EA-26B8-45A6-94C3-DF25592BF2FE" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-72DF07EA-26B8-45A6-94C3-DF25592BF2FE"><h2 class="- topic/title title sectiontitle">Hardware Setup - LAN8740 PHY DB</h2>
+      
+      <p class="- topic/p p">The target board for running the application is <a class="- topic/xref xref" href="https://www.microchip.com/DevelopmentTools/ProductDetails/DM320004-2" target="_blank" rel="external noopener">PIC32 Ethernet Starter Kit II</a>. </p>
+      <p class="- topic/p p">This section provides essential hardware configuration of this target board to run TCP/IP
+        applications.</p>
+      <figure class="- topic/fig fig fignone" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e30" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e30"><figcaption class="- topic/title title figcap"><span class="figtitleprefix fig--title-label">Figure 1-4. <span id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e32" class="fig--title"><strong class="+ topic/ph hi-d/b ph b">PIC32 Ethernet Starter Kit
+            II</strong><div class=""><img class="- topic/image image break break" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e35" src="GUID-0C47B1CF-AE7B-43A0-B069-A76A69E171BA-high.jpg"/></div></span></span></figcaption>
+        
+      </figure>
+      <p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">Board Setup</strong></p>
+      <p class="- topic/p p">To set up the hardware, refer to the chapter <em class="+ topic/ph hi-d/i ph i">Hardware</em> in <a class="- topic/xref xref" href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/UserGuides/70005169B.pdf" target="_blank" rel="external noopener">PIC32 Ethernet Starter Kit II User’s Guide </a>.</p>
+      <ul class="- topic/ul ul" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e52" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e52">
+        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e54" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e54">Connect the mini USB cable from the
+          computer to the DEBUG USB (J7) connector on the PIC32 Ethernet Starter Kit II.</li>
+        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e57" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e57">Establish a connection between the
+          router/switch with the PIC32 Ethernet Starter Kit II through the RJ45 connector on PHY
+          daughter board.</li>
+        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e60" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e60"><strong class="+ topic/ph hi-d/b ph b">Note:</strong> The PIC32 Ethernet Starter
+          Kit II does not have an on-board UART connector.<ul class="- topic/ul ul">
+            <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e66" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e66">If a serial console is needed, a
+              quick setting may be connecting the Starter Kit to an USB-UART converter( like FTDI)
+              via a <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/DM320002" target="_blank" rel="external noopener">Starter Kit I/O Expansion Board.</a></li>
+            <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e71" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e71">The PIC32 Ethernet Starter Kit II is
+              connected to J1 on the Starter Kit I/O Expansion board.</li>
+            <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e74" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e74">The <strong class="+ topic/ph hi-d/b ph b">Pin 46</strong> (U2RX) and <strong class="+ topic/ph hi-d/b ph b">Pin
+                48</strong> (U2TX) from connector <strong class="+ topic/ph hi-d/b ph b">J11</strong> on I/O Expansion Board can be used for
+              serial console (as shown above).</li>
+            <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e86" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d40e86">
+              <p class="- topic/p p">Alternatively, a <a class="- topic/xref xref" href="https://onlinedocs.microchip.com/oxy/GUID-B1AF6B2B-BC62-4D92-B329-A50140DF3437-en-US-2/GUID-B0FCC6E9-74D8-443B-8F61-7317500EEFF3.html" target="_blank" rel="external noopener">TELNET</a> session could be established for console message
+                and executing the application &amp; TCP/IP commands.</p>
+            </li>
+          </ul></li>
+      </ul>
+    </section>
+        <section class="- topic/section section" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-1C9FE10F-5155-45B1-AC9D-EF54EA5B9DF7" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-1C9FE10F-5155-45B1-AC9D-EF54EA5B9DF7"><h2 class="- topic/title title sectiontitle">Hardware Setup - External Ethernet
+                Controller ENC28J60</h2>
+            
+            <p class="- topic/p p">The target board for running the application is <a class="- topic/xref xref" href="https://www.microchip.com/DevelopmentTools/ProductDetails/DM320004-2" target="_blank" rel="external noopener">PIC32 Ethernet Starter Kit II</a>. </p>
+            <p class="- topic/p p">This section provides essential hardware configuration of this target board to run
+                TCP/IP applications.</p>
+            <figure class="- topic/fig fig fignone" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e30" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e30"><figcaption class="- topic/title title figcap"><span class="figtitleprefix fig--title-label">Figure 1-5. <span id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e32" class="fig--title"><strong class="+ topic/ph hi-d/b ph b">PIC32 Ethernet Starter Kit
+                        II</strong><div class=""><img class="- topic/image image break break" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e35" src="GUID-0B2261F1-2989-46B4-9790-514177F25325-high.jpg"/></div></span></span></figcaption>
+                
+            </figure>
+            <p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">Board Setup</strong></p>
+            <p class="- topic/p p">To set up the hardware, refer to the chapter <em class="+ topic/ph hi-d/i ph i">Hardware</em> in <a class="- topic/xref xref" href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/UserGuides/70005169B.pdf" target="_blank" rel="external noopener">PIC32 Ethernet Starter Kit II User’s Guide
+                </a>.</p>
+            <ul class="- topic/ul ul" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e52" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e52">
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e54" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e54">Connect the mini USB cable from
+                    the computer to the DEBUG USB (J7) connector on the PIC32 Ethernet Starter Kit
+                    II.</li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e57" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e57">The 10Mbps Ethernet PICtail Plus Daughter Board is inserted to J2(or J4) on the
+                        <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/DM320002" target="_blank" rel="external noopener">Starter Kit I/O Expansion Board</a>. The
+                    J2, PICtail Plus (SPI) connector on Ethernet PICtail Plus Daughter Board is
+                    attached to I/O Expansion Board. The PICtail daughter board is inserted to use
+                    SPI1.</li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e63" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e63">Refer to the ENC28J60 External Ethernet PICtail Plus <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/ac164123" target="_blank" rel="external noopener">Daughter Board</a>.</li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e69" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e69">The <strong class="+ topic/ph hi-d/b ph b">Pin 26</strong> and <strong class="+ topic/ph hi-d/b ph b">Pin
+                        47</strong> on<strong class="+ topic/ph hi-d/b ph b"> J11</strong> (on I/O Expansion Board) needs to be connected to
+                    control the Chip-Select line by the PIC32 Ethernet Starter Kit II (as shown
+                    above).</li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e81" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e81"><strong class="+ topic/ph hi-d/b ph b">Note: </strong>The PIC32 Ethernet
+                    Starter Kit II does not have an on-board UART connector.<ul class="- topic/ul ul" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e85" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e85">
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e87" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e87">If a serial console is
+                            needed, a quick setting may be connecting the Starter Kit to an USB-UART
+                            converter( like FTDI) via a Starter Kit I/O Expansion Board.</li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e90" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e90">The PIC32 Ethernet
+                            Starter Kit II is connected to J1 on the Starter Kit I/O Expansion
+                            board.</li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e93" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e93">The <strong class="+ topic/ph hi-d/b ph b">Pin 46 </strong>(U2RX)
+                            and <strong class="+ topic/ph hi-d/b ph b">Pin 48</strong> (U2TX) from connector <strong class="+ topic/ph hi-d/b ph b">J11</strong> on I/O Expansion
+                            Board can be used for serial console (as shown above).</li>
+                        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e105" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d41e105">
+                            <p class="- topic/p p">Alternatively, a <a class="- topic/xref xref" href="https://onlinedocs.microchip.com/oxy/GUID-B1AF6B2B-BC62-4D92-B329-A50140DF3437-en-US-2/GUID-B0FCC6E9-74D8-443B-8F61-7317500EEFF3.html" target="_blank" rel="external noopener">TELNET</a> session could be established for
+                                console message and executing the application &amp; TCP/IP
+                                commands.</p>
+                        </li>
+                    </ul></li>
+            </ul>
+        </section>
+        <section class="- topic/section section" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-9CCBA886-7352-4983-B177-1C4C084A2198" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-9CCBA886-7352-4983-B177-1C4C084A2198"><h2 class="- topic/title title sectiontitle">Hardware Setup - External Ethernet
+        Controller ENC624J600</h2>
+      
+      <p class="- topic/p p">The target board for running the application is <a class="- topic/xref xref" href="https://www.microchip.com/DevelopmentTools/ProductDetails/DM320004-2" target="_blank" rel="external noopener">PIC32 Ethernet Starter Kit II</a>. </p>
+      <p class="- topic/p p">This section provides essential hardware configuration of this target board to run TCP/IP
+        applications.</p>
+      <figure class="- topic/fig fig fignone" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e30" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e30"><figcaption class="- topic/title title figcap"><span class="figtitleprefix fig--title-label">Figure 1-6. <span id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e32" class="fig--title"><strong class="+ topic/ph hi-d/b ph b">PIC32 Ethernet Starter Kit
+            II</strong><div class=""><img class="- topic/image image break break" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e35" src="GUID-711E08B7-13E4-4394-B48D-647BC64262D2-high.jpg"/></div></span></span></figcaption>
+        
+      </figure>
+      <p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">Board Setup</strong></p>
+      <p class="- topic/p p">To set up the hardware, refer to the chapter <em class="+ topic/ph hi-d/i ph i">Hardware</em> in <a class="- topic/xref xref" href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/UserGuides/70005169B.pdf" target="_blank" rel="external noopener">PIC32 Ethernet Starter Kit II User’s Guide </a>.</p>
+      <ul class="- topic/ul ul" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e52" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e52">
+        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e54" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e54">Connect the mini USB cable from the
+          computer to the DEBUG USB (J7) connector on the PIC32 Ethernet Starter Kit II.</li>
+        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e57" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e57">The Fast 100Mbps Ethernet PICtail Plus Daughter Board is inserted to J2(or J4) on the
+            <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/DM320002" target="_blank" rel="external noopener">Starter Kit I/O Expansion Board</a>. The J2, PICtail Plus (SPI)
+          connector on Fast 100Mbps Ethernet PICtail Plus Daughter Board is attached to I/O
+          Expansion Board with white arrows on the two boards lined up. The PICtail daughter board
+          is inserted to use SPI1.</li>
+        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e63" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e63">Refer to the ENC624J600 External Ethernet PICtail Plus <a class="- topic/xref xref" href="https://www.microchip.com/en-us/development-tool/ac164132" target="_blank" rel="external noopener">Daughter Board</a>.</li>
+        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e69" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e69">The <strong class="+ topic/ph hi-d/b ph b">Pin 26 </strong>and <strong class="+ topic/ph hi-d/b ph b">Pin 47</strong> on
+            <strong class="+ topic/ph hi-d/b ph b">J11</strong> (on I/O Expansion Board) needs to be connected to control the Chip-Select
+          line by the PIC32 Ethernet Starter Kit II (as shown above).</li>
+        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e81" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e81">Connect the micro USB cable from the computer to the J3 connector (which is on backside
+          of PIC32 Ethernet Starter Kit II) to power up the External Ethernet PICtail Plus Daughter
+          Board.</li>
+        <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e85" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e85"><strong class="+ topic/ph hi-d/b ph b">Note:</strong> The PIC32 Ethernet Starter
+          Kit II does not have an on-board UART connector.<ul class="- topic/ul ul" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e89" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e89">
+            <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e91" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e91">If a serial console is needed, a
+              quick setting may be connecting the Starter Kit to an USB-UART converter( like FTDI)
+              via a Starter Kit I/O Expansion Board.</li>
+            <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e94" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e94">The PIC32 Ethernet Starter Kit II is
+              connected to J1 on the Starter Kit I/O Expansion board.</li>
+            <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e97" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e97">The <strong class="+ topic/ph hi-d/b ph b">Pin 46 </strong>(U2RX) and <strong class="+ topic/ph hi-d/b ph b">Pin
+                48</strong> (U2TX) from connector<strong class="+ topic/ph hi-d/b ph b"> J11</strong> on I/O Expansion Board can be used for
+              serial console (as shown above).</li>
+            <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e109" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__d42e109">
+              <p class="- topic/p p">Alternatively, a <a class="- topic/xref xref" href="https://onlinedocs.microchip.com/oxy/GUID-B1AF6B2B-BC62-4D92-B329-A50140DF3437-en-US-2/GUID-B0FCC6E9-74D8-443B-8F61-7317500EEFF3.html" target="_blank" rel="external noopener">TELNET</a> session could be established for console message
+                and executing the application &amp; TCP/IP commands.</p>
+            </li>
+          </ul></li>
+      </ul>
+    </section>
+        <section class="- topic/section section" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_CG1_RPV_HWB" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_CG1_RPV_HWB"><h2 class="- topic/title title sectiontitle">Running the Application</h2><ol class="- topic/ol ol" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__OL_BMJ_RRG_3WB" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__OL_BMJ_RRG_3WB">
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-69E61730-4007-4CA9-802B-B1974C5512A5" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-69E61730-4007-4CA9-802B-B1974C5512A5">Open a terminal application on
+                    the host computer (like Hyper-terminal or Tera Term). </li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-64610B04-0779-4BC5-B09E-25435256405D" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-64610B04-0779-4BC5-B09E-25435256405D">Configure the terminal
+                    application for serial port connected to USB-UART connector.</li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-8A5A7EBE-112F-4F05-8412-00D1B236A158" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-8A5A7EBE-112F-4F05-8412-00D1B236A158">Set baud rate as 115200 in the
+                    terminal application.</li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-5F3B7DB1-E4F5-487E-85DA-9028498608E0" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-5F3B7DB1-E4F5-487E-85DA-9028498608E0">Build and download the
+                    application project on the target board.</li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-E01BBAA4-174C-442F-B6EF-1871FAAEF515" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-E01BBAA4-174C-442F-B6EF-1871FAAEF515">Verify the TCP/IP Stack
+                    initialization console messages.</li>
+            </ol><p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">Console Start up</strong></p><div class=""><img class="- topic/image image" src="GUID-1D2DD2F7-406F-412F-89F8-66EB4226E957-high.png"/></div><p class="- topic/p p"><em class="+ topic/ph hi-d/i ph i">If DHCP client is enabled in
+                    the demonstration, wait for the DHCP server to assign an IP address for the
+                    development board. </em></p><p class="- topic/p p"><em class="+ topic/ph hi-d/i ph i">This will be printed on the console. Otherwise,
+                    the default static IP address will be assigned to the board.</em></p><p class="- topic/p p">By
+                entering the command <em class="+ topic/ph hi-d/i ph i">netinfo</em>, the response is obtained as shown
+                    above.</p><p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">TCP Client Test</strong></p><p class="- topic/p p">Enter following command in console:
+                    <em class="+ topic/ph hi-d/i ph i">openurl</em> &lt;<em class="+ topic/ph hi-d/i ph i">url</em>&gt;. For example, <em class="+ topic/ph hi-d/i ph i">openurl</em><em class="+ topic/ph hi-d/i ph i">
+                    http://www.microchip.com/</em>.</p><p class="- topic/p p"> The response from the server will be
+                printed on the console as shown below.</p><div class=""><img class="- topic/image image" src="GUID-A744D423-8BE0-45BA-9992-AD7987342031-high.png"/></div><p class="- topic/p p">Alternatively, open TELNET
+                session using the login credentials.</p><p class="- topic/p p"><strong class="+ topic/ph hi-d/b ph b">Test with TELNET </strong></p><ul class="- topic/ul ul">
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-5B098F54-43AF-4822-81BF-8CC5648E29A9" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-5B098F54-43AF-4822-81BF-8CC5648E29A9">
+                    <p class="- topic/p p">Open the windows command prompt (i.e., cmd).</p>
+                </li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-FB03B98A-099F-462A-B189-00CA1317C4B5" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-FB03B98A-099F-462A-B189-00CA1317C4B5">
+                    <p class="- topic/p p">Enter the command <em class="+ topic/ph hi-d/i ph i">telent  &lt;ip address of board&gt;</em></p>
+                </li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-9B12BC1B-1508-462F-A999-8A4E1279A988" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-9B12BC1B-1508-462F-A999-8A4E1279A988">
+                    <p class="- topic/p p">Now, login using credentials provided in the application.</p>
+                </li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-71217337-40D5-49B6-A5F1-E183E00D8EEA" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-71217337-40D5-49B6-A5F1-E183E00D8EEA">
+                    <p class="- topic/p p">Upon successful login, the telnet terminal is ready for executing the
+                        application &amp; TCP/IP commands.</p>
+                </li>
+                <li class="- topic/li li" id="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-E1936D6B-FED6-4D00-B4D0-7CD0BD8031C8" data-ofbid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-E1936D6B-FED6-4D00-B4D0-7CD0BD8031C8">
+                    <p class="- topic/p p">See below for test output:</p>
+                </li>
+            </ul><div class=""><img class="- topic/image image" src="GUID-4C1F62D3-BDE6-4AE1-BD90-94A2B38CC98F-high.png"/></div></section>
+    </div>
+</article></main></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                        <nav role="navigation" id="wh_topic_toc" aria-label="On this page" class="col-lg-2 d-none d-lg-block navbar d-print-none"> 
+                            <div id="wh_topic_toc_content">
+		                        
+	                            <div class=" wh_topic_toc "><div class="wh_topic_label">On this page</div><ul><li class="section-item"><div class="section-title"><a href="#GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_KL1_1Y5_HWB" data-tocid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_KL1_1Y5_HWB">Description</a></div></li><li class="section-item"><div class="section-title"><a href="#GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_KVV_V3V_HWB" data-tocid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_KVV_V3V_HWB">Downloading and Building the
+                application</a></div></li><li class="section-item"><div class="section-title"><a href="#GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-72DF07EA-26B8-45A6-94C3-DF25592BF2FE" data-tocid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-72DF07EA-26B8-45A6-94C3-DF25592BF2FE">Hardware Setup - LAN8740 PHY DB</a></div></li><li class="section-item"><div class="section-title"><a href="#GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-1C9FE10F-5155-45B1-AC9D-EF54EA5B9DF7" data-tocid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-1C9FE10F-5155-45B1-AC9D-EF54EA5B9DF7">Hardware Setup - External Ethernet
+                Controller ENC28J60</a></div></li><li class="section-item"><div class="section-title"><a href="#GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-9CCBA886-7352-4983-B177-1C4C084A2198" data-tocid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__GUID-9CCBA886-7352-4983-B177-1C4C084A2198">Hardware Setup - External Ethernet
+        Controller ENC624J600</a></div></li><li class="section-item"><div class="section-title"><a href="#GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_CG1_RPV_HWB" data-tocid="GUID-BE21D51D-4843-446B-8B37-0D3835848698__SECTION_CG1_RPV_HWB">Running the Application</a></div></li></ul></div>
+	                        	
+                        	</div>
+                        </nav>
+                    
+                </div>
+            </div>
+            
+            
+            
+        </div> 
+        <footer class="navbar navbar-default wh_footer">
+  <div class=" footer-container mx-auto ">
+    <div class="footer">
+  <div class="mchp-wh-footer">
+    <div class="mchp-footer">
+      <div class="mchp-footer-tier1">
+        <div class="spacer"></div>
+        <div class="mchp-footer-container">
+          <div class="mchp-footer-links mchp-social-media-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.facebook.com/pages/Microchip-Technology-Inc/20320981741" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Facebook" src="oxygen-webhelp/template/resources/images/201016-corp-facebook.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.linkedin.com/company/microchip-technology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip LinkedIn" src="oxygen-webhelp/template/resources/images/201016-corp-linkedin.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://twitter.com/MicrochipTech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Twitter" src="oxygen-webhelp/template/resources/images/201016-corp-twitter.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.youtube.com/user/MicrochipTechnology" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip YouTube" src="oxygen-webhelp/template/resources/images/201016-corp-youtube.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.instagram.com/microchiptechnologyinc/" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Instagram" src="oxygen-webhelp/template/resources/images/201016-corp-instagram.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.weibo.com/microchiptech" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Weibo" src="oxygen-webhelp/template/resources/images/201016-corp-weibo.png"/>
+                </a>
+              </div>
+              <div class="mchp-component-item">
+                <a class="cmp-image__link" href="https://www.microchip.com/en-us/about/blog" target="_blank">
+                  <img class="cmp-image__image" alt="Microchip Blog" src="oxygen-webhelp/template/resources/images/201016-corp-blog.png"/>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-links">
+            <div class="mchp-component-items">
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://www.microchip.com/about-us/contact-us" class="mchp-link__link">Contact</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information" class="mchp-link__link">Legal</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/privacy-policy" class="mchp-link__link">Privacy Policy</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item ">
+                <div class="link">
+                  <a href="https://www.microchip.com/en-us/about/legal-information/microchip-cookie-statement" class="mchp-link__link">Cookies</a>
+                  <span class="mchp-link__separator">|</span>
+                </div>
+              </div>
+              <div class="mchp-component-item">
+                <div class="link">
+                  <a href="https://careers.microchip.com/" class="mchp-link__link">Careers</a>
+                  <span class="mchp-link__separator"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mchp-footer-newsletter">
+            <div class="cmp-text">
+              <p>Stay on the leading edge with our blog</p>
+            </div>
+            <div class="mchp-button-wrapper">
+              <a role="button" href="https://www.microchip.com/en-us/about/blog" class="mchp-button mchp-button-regular solid">
+                <span class="mchp-button__span">MicroSolutions</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="graphic">
+          <img src="oxygen-webhelp/template/resources/images/footer-graphic.png"/>
+        </div>
+      </div>
+      <div class="mchp-footer-tier2">
+        <p class="mchp-copyright">© Copyright 1998-2022 Microchip Technology Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-2724382-19"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];  
+    function gtag(){dataLayer.push(arguments);}  
+    gtag('js', new Date());   
+    gtag('config', 'UA-2724382-19');
+  </script>
+  
+  <script type="text/javascript">_satellite.pageBottom();</script><!-- Adobe Analytics -->
+  
+</div>
+  </div>
+</footer>
+        
+        <div id="go2top" class="d-print-none">
+            <span class="oxy-icon oxy-icon-up"></span>
+        </div>
+        
+        <div id="modal_img_large" class="modal">
+            <span class="close oxy-icon oxy-icon-remove"></span>
+            <div id="modal_img_container"></div>
+            <div id="caption"></div>
+        </div>
+        
+        
+        
+       
+        </body>
+</html>
