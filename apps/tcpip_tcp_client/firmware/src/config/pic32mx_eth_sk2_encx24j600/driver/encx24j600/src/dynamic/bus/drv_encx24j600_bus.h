@@ -625,14 +625,14 @@ typedef DRV_ENCX24J600_BUS_RESULT (*DRV_ENCX24J600_ReadPointerResult)(struct _DR
     Parameters:
         pDrvInstance â?? The driver instance
         reg â?? the register to write to
-        buffer â?? the location of the buffer to write
+        pkt â?? the packet with the buffer to write
         dataSize â?? the size of the data to write.
 
     Returns:
         0 â?? on error
         Valid handle â?? on success
 */
-typedef uintptr_t (*DRV_ENCX24J600_WriteData)(struct _DRV_ENCX24J600_DriverInfo *  pDrvInstance, DRV_ENCX24J600_POINTER  reg, uint8_t *  buffer, uint16_t  dataSize);
+typedef uintptr_t (*DRV_ENCX24J600_WriteData)(struct _DRV_ENCX24J600_DriverInfo *  pDrvInstance, DRV_ENCX24J600_POINTER  reg, struct _DRV_ENCX24J600_TX_PACKET_INFO *  pkt, uint16_t dataSize);
 
 // *****************************************************************************
 /* Read Data Start
