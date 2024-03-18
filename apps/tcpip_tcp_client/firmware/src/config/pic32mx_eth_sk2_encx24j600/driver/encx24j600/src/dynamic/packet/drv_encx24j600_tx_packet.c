@@ -80,18 +80,21 @@ int32_t DRV_ENCX24J600_TxPacketTask(struct _DRV_ENCX24J600_DriverInfo * pDrvInst
 
             uint16_t dataCount = 0;
             TCPIP_MAC_DATA_SEGMENT* pSeg = pkt->pkt->pDSeg;
+            uint16_t nSegs = 0;
             while (pSeg != NULL)
             {
                 dataCount += pSeg->segLen;
                 pSeg = pSeg->next;
+                nSegs++;
             }
             if (pDrvInst->txBufferRemaining < dataCount)
             {
                 return 0;
             }
-            if((pkt->pkt->pktFlags & TCPIP_MAC_PKT_FLAG_LINKED_SEG) != 0)
-            {   // send the whole packet at once
-                ret = (pDrvInst->busVTable->fpDataWr)(pDrvInst, DRV_ENCX24J600_PTR_GPWR, pkt, dataCount);
+
+            if(nSegs > 1)
+            {   // multiple segments; copy the whole packet and send it at once
+                ret = (pDrvInst->busVTable->fpDataPktWr)(pDrvInst, DRV_ENCX24J600_PTR_GPWR, pkt, dataCount);
                 if (ret == 0)
                 {
                     return 0;
@@ -103,7 +106,7 @@ int32_t DRV_ENCX24J600_TxPacketTask(struct _DRV_ENCX24J600_DriverInfo * pDrvInst
                 // send packet segment by segment
                 while (pkt->pDSeg != NULL)
                 {
-                    ret = (pDrvInst->busVTable->fpDataWr)(pDrvInst, DRV_ENCX24J600_PTR_GPWR, pkt, pkt->pDSeg->segLen);
+                    ret = (pDrvInst->busVTable->fpDataSegWr)(pDrvInst, DRV_ENCX24J600_PTR_GPWR, pkt);
                     if (ret == 0)
                     {
                         return 0;
@@ -189,11 +192,13 @@ int32_t DRV_ENCX24J600_TxPacketTask(struct _DRV_ENCX24J600_DriverInfo * pDrvInst
             if(pkt->pkt != NULL)
             {
                 uint16_t count = 0;
+                uint16_t nSegs = 0;
                 pkt->pDSeg = pkt->pkt->pDSeg;
                 while (pkt->pDSeg != NULL)
                 {
                     count += pkt->pDSeg->segLen;
                     pkt->pDSeg = pkt->pDSeg->next;
+                    nSegs++;
                 }
                 if (!pDrvInst->mainStateInfo.runningInfo.chkStaInfo.linkState)
                 {
@@ -204,9 +209,9 @@ int32_t DRV_ENCX24J600_TxPacketTask(struct _DRV_ENCX24J600_DriverInfo * pDrvInst
                      pkt->pkt->ackRes = TCPIP_MAC_PKT_ACK_TX_OK;
                 }
 
-                if((pkt->pkt->pktFlags & TCPIP_MAC_PKT_FLAG_LINKED_SEG) != 0)
-                {
-                    DRV_ENC_CopyBuffAck(pDrvInst, pkt);
+                if(nSegs > 1)
+                {   // this packet was copied into an allocated buffer - Free it!
+                    DRV_ENCX24J600_WritePktAck(pDrvInst, pkt);
                 }
                 pkt->pkt->pktFlags &= ~TCPIP_MAC_PKT_FLAG_QUEUED;
                 (*pkt->pkt->ackFunc)(pkt->pkt, pkt->pkt->ackParam);

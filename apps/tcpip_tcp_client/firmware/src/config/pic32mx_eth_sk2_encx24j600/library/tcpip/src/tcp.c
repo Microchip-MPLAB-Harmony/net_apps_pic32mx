@@ -1445,7 +1445,7 @@ static TCP_V4_PACKET* _TcpAllocateTxPacket(TCB_STUB* pSkt, IP_ADDRESS_TYPE addTy
     }
 
     // allocate IPv4 packet
-    allocFlags = TCPIP_MAC_PKT_FLAG_IPV4 | TCPIP_MAC_PKT_FLAG_SPLIT | TCPIP_MAC_PKT_FLAG_TX | TCPIP_MAC_PKT_FLAG_TCP | TCPIP_MAC_PKT_FLAG_LINKED_SEG;
+    allocFlags = TCPIP_MAC_PKT_FLAG_IPV4 | TCPIP_MAC_PKT_FLAG_SPLIT | TCPIP_MAC_PKT_FLAG_TX | TCPIP_MAC_PKT_FLAG_TCP;
     // allocate from main packet pool
     // make sure there's enough room for TCP_OPTIONS
     pv4Pkt = (TCP_V4_PACKET*)TCPIP_PKT_SocketAlloc(sizeof(TCP_V4_PACKET), sizeof(TCP_HEADER), sizeof(TCP_OPTIONS), allocFlags);

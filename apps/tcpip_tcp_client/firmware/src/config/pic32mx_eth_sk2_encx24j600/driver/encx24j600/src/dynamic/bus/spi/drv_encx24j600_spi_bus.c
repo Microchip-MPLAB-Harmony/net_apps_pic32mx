@@ -42,12 +42,7 @@ Microchip or any third party.
 #include "../../drv_encx24j600_local.h"
 #include "drv_encx24j600_spi_bus.h"
 
-void DRV_ENC_CopyBuffAck(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_TX_PACKET_INFO* pkt);
-uintptr_t DRV_ENCX24J600_WritePktCopy(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, DRV_ENCX24J600_TX_PACKET_INFO *  pkt, uint16_t dataSize);
-
-
-uintptr_t DRV_ENCX24J600_WritePktSeg(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, DRV_ENCX24J600_TX_PACKET_INFO *  pkt, uint16_t dataSize);
-
+void DRV_ENCX24J600_WritePktAck(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_TX_PACKET_INFO* pkt);
 
 const DRV_ENCX24J600_BusVTable drv_encx24j600_spi_vtable =
 {
@@ -74,7 +69,8 @@ const DRV_ENCX24J600_BusVTable drv_encx24j600_spi_vtable =
     .fpPtrWr = DRV_ENCX24J600_SPI_WritePointer,
     .fpPtrRdStart = DRV_ENCX24J600_SPI_ReadPointerStart,
     .fpPtrRdResult = DRV_ENCX24J600_SPI_ReadPointerResult,
-    .fpDataWr = DRV_ENCX24J600_SPI_WriteData,
+    .fpDataPktWr = DRV_ENCX24J600_SPI_WritePkt,
+    .fpDataSegWr = DRV_ENCX24J600_SPI_WriteSeg,
     .fpDataRd = DRV_ENCX24J600_SPI_ReadData,
 
 };
@@ -235,7 +231,7 @@ int32_t DRV_ENCX24J600_SPI_DeinitializeInterface(struct _DRV_ENCX24J600_DriverIn
     The bus has to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns
         Negative if error
@@ -271,7 +267,7 @@ int32_t DRV_ENCX24J600_SPI_OpenInterface(struct _DRV_ENCX24J600_DriverInfo *  pD
     The bus has to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns:
         None
@@ -300,13 +296,13 @@ void DRV_ENCX24J600_SPI_CloseInterface( struct _DRV_ENCX24J600_DriverInfo *  pDr
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
         handle - Handle created by the operation.
 
     Returns
-        DRV_ENCX24J600_BR_SUCCESS â?? if the operation was successful
-        DRV_ENCX24J600_BR_PENDING â?? if the operation is still pending
-        DRV_ENCX24J600_BR_ERROR â?? if there was an error in the operation
+        DRV_ENCX24J600_BR_SUCCESS - if the operation was successful
+        DRV_ENCX24J600_BR_PENDING - if the operation is still pending
+        DRV_ENCX24J600_BR_ERROR - if there was an error in the operation
 */
 DRV_ENCX24J600_BUS_RESULT DRV_ENCX24J600_SPI_OperationResult( struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, uintptr_t  handle )
 {
@@ -397,14 +393,14 @@ int8_t _DRV_ENCX24J600_DoBankSelect(DRV_ENCX24J600_spiBusData * pBusInfo,  DRV_E
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
-        reg â?? The Special Function Register to write to.
-        Value â?? the value to write into the register
-        opIndex â?? the index to use for this operation
+        pDrvInst - The driver instance
+        reg - The Special Function Register to write to.
+        Value - the value to write into the register
+        opIndex - the index to use for this operation
 
     Returns:
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
 uintptr_t DRV_ENCX24J600_SPI_SfrWrite(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_SFR_MAP  reg, DRV_ENCX24J600_RegUnion  value,  uint8_t  opIndex )
 {
@@ -475,13 +471,13 @@ uintptr_t DRV_ENCX24J600_SPI_SfrWrite(struct _DRV_ENCX24J600_DriverInfo *  pDrvI
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
-        reg â?? The Special Function Register to write to.
-        opIndex â?? the index to use for this operation
+        pDrvInst - The driver instance
+        reg - The Special Function Register to write to.
+        opIndex - the index to use for this operation
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
 uintptr_t DRV_ENCX24J600_SPI_SfrReadStart(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_SFR_MAP  reg, uint8_t  opIndex )
 {
@@ -548,15 +544,15 @@ uintptr_t DRV_ENCX24J600_SPI_SfrReadStart(struct _DRV_ENCX24J600_DriverInfo *  p
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInst â?? The driver instance
-        handle â?? the handle from the read start operation
-        value â?? where to put the results of the operation
-        opIndex â?? the index to use for this operation
+        pDrvInst - The driver instance
+        handle - the handle from the read start operation
+        value - where to put the results of the operation
+        opIndex - the index to use for this operation
 
     Returns
-        DRV_ENCX24J600_BR_SUCCESS â?? if the operation was successful
-        DRV_ENCX24J600_BR_PENDING â?? if the operation is still pending
-        DRV_ENCX24J600_BR_ERROR â?? if there was an error in the operation
+        DRV_ENCX24J600_BR_SUCCESS - if the operation was successful
+        DRV_ENCX24J600_BR_PENDING - if the operation is still pending
+        DRV_ENCX24J600_BR_ERROR - if there was an error in the operation
 */
 DRV_ENCX24J600_BUS_RESULT DRV_ENCX24J600_SPI_SfrReadResult(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, uintptr_t  handle, DRV_ENCX24J600_RegUnion *  value,  uint8_t  opIndex )
 {
@@ -585,14 +581,14 @@ DRV_ENCX24J600_BUS_RESULT DRV_ENCX24J600_SPI_SfrReadResult(struct _DRV_ENCX24J60
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInst â?? The driver instance
-        reg â?? The Special Function Register to write to.
-        Value â?? The bits to set in the register.
-        opIndex â?? the index to use for this operation
+        pDrvInst - The driver instance
+        reg - The Special Function Register to write to.
+        Value - The bits to set in the register.
+        opIndex - the index to use for this operation
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
 uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_SFR_MAP  reg, DRV_ENCX24J600_RegUnion  value, uint8_t  opIndex )
 {
@@ -665,14 +661,14 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInst â?? The driver instance
-        reg â?? The Special Function Register to write to.
-        Value â?? The bits to clear in the register.
-        opIndex â?? the index to use for this operation
+        pDrvInst - The driver instance
+        reg - The Special Function Register to write to.
+        Value - The bits to clear in the register.
+        opIndex - the index to use for this operation
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  uintptr_t DRV_ENCX24J600_SPI_SfrBitClear(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_SFR_MAP  reg, DRV_ENCX24J600_RegUnion  value, uint8_t  opIndex )
  {
@@ -741,11 +737,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns:
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t rstCmd = DRV_ENCX24J600_SPI_INST_SETETHRST;  // Need to force the command byte into memory so a pointer can be passed
  
@@ -776,11 +772,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t erxCmd = DRV_ENCX24J600_SPI_INST_ENABLERX;  // Need to force the command byte into memory so a pointer can be passed
 
@@ -810,11 +806,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t drxCmd = DRV_ENCX24J600_SPI_INST_DISABLERX;  // Need to force the command byte into memory so a pointer can be passed
  uintptr_t DRV_ENCX24J600_SPI_DisableRX(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst )
@@ -846,11 +842,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t rptCmd = DRV_ENCX24J600_SPI_INST_SETTXRTS;  // Need to force the command byte into memory so a pointer can be passed
  uintptr_t DRV_ENCX24J600_SPI_ReqPktTx(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst )
@@ -882,11 +878,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t dpcCmd = DRV_ENCX24J600_SPI_INST_SETPKTDEC;  // Need to force the command byte into memory so a pointer can be passed
 
@@ -916,11 +912,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
   static uint8_t eiCmd = DRV_ENCX24J600_SPI_INST_SETEIE;  // Need to force the command byte into memory so a pointer can be passed
 
@@ -952,11 +948,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns:
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t diCmd = DRV_ENCX24J600_SPI_INST_CLREIE;  // Need to force the command byte into memory so a pointer can be passed
 
@@ -986,11 +982,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t dfCmd = DRV_ENCX24J600_SPI_INST_FCDISABLE;  // Need to force the command byte into memory so a pointer can be passed
 
@@ -1020,11 +1016,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t sfCmd = DRV_ENCX24J600_SPI_INST_FCSINGLE;  // Need to force the command byte into memory so a pointer can be passed
  uintptr_t DRV_ENCX24J600_SPI_FlowCtrlSingle(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst )
@@ -1053,11 +1049,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns:
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t mfCmd = DRV_ENCX24J600_SPI_INST_FCMULTIPLE;  // Need to force the command byte into memory so a pointer can be passed
  uintptr_t DRV_ENCX24J600_SPI_FlowCtrlMult(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst )
@@ -1086,11 +1082,11 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
+        pDrvInst - The driver instance
 
     Returns:
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  static uint8_t cfCmd = DRV_ENCX24J600_SPI_INST_FCCLEAR;  // Need to force the command byte into memory so a pointer can be passed
  uintptr_t DRV_ENCX24J600_SPI_FlowCtrClear(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst )
@@ -1121,14 +1117,14 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
-        reg â?? The PHY register to write
-        value â?? the Value to write
-        opIndex â?? the operation index.
+        pDrvInst - The driver instance
+        reg - The PHY register to write
+        value - the Value to write
+        opIndex - the operation index.
 
     Returns:
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  uintptr_t DRV_ENCX24J600_SPI_PhyWrite(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_PHY_SFR_MAP  reg, DRV_ENCX24J600_RegUnion  value, uint8_t  opIndex )
  {
@@ -1158,14 +1154,14 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
-        reg â?? The register to write
-        value â?? the value to write
-        opIndex â?? the operation index.
+        pDrvInst - The driver instance
+        reg - The register to write
+        value - the value to write
+        opIndex - the operation index.
 
     Returns:
-        NULL â?? On Error
-        Valid Handle â?? on success
+        NULL - On Error
+        Valid Handle - on success
 */
  uintptr_t DRV_ENCX24J600_SPI_WritePointer(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, uint16_t  value, uint8_t  opIndex )
  {
@@ -1229,13 +1225,13 @@ uintptr_t DRV_ENCX24J600_SPI_SfrBitSet(struct _DRV_ENCX24J600_DriverInfo *  pDrv
    The bus had to have been initialized first.
 
    Parameters:
-       pDrvInst â?? The driver instance
-       reg â?? The register to write
-       opIndex â?? the operation index.
+       pDrvInst - The driver instance
+       reg - The register to write
+       opIndex - the operation index.
 
    Returns:
-       NULL â?? On Error
-       Valid Handle â?? on success
+       NULL - On Error
+       Valid Handle - on success
 */
 uintptr_t DRV_ENCX24J600_SPI_ReadPointerStart(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, uint8_t  opIndex )
 {
@@ -1299,15 +1295,15 @@ uintptr_t DRV_ENCX24J600_SPI_ReadPointerStart(struct _DRV_ENCX24J600_DriverInfo 
     The bus had to have been initialized first.
 
     Parameters:
-        pDrvInst â?? The driver instance
-        handle â?? From the read operation
-        value â?? the location for the results
-        opIndex â?? the operation index.
+        pDrvInst - The driver instance
+        handle - From the read operation
+        value - the location for the results
+        opIndex - the operation index.
 
     Returns:
-        DRV_ENCX24J600_BR_SUCCESS â?? if the operation was successful
-        DRV_ENCX24J600_BR_PENDING â?? if the operation is still pending
-        DRV_ENCX24J600_BR_ERROR â?? if there was an error in the operation
+        DRV_ENCX24J600_BR_SUCCESS - if the operation was successful
+        DRV_ENCX24J600_BR_PENDING - if the operation is still pending
+        DRV_ENCX24J600_BR_ERROR - if there was an error in the operation
 */
  DRV_ENCX24J600_BUS_RESULT DRV_ENCX24J600_SPI_ReadPointerResult(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, uintptr_t handle, uint16_t* value, uint8_t  opIndex )
  {
@@ -1321,7 +1317,7 @@ uintptr_t DRV_ENCX24J600_SPI_ReadPointerStart(struct _DRV_ENCX24J600_DriverInfo 
     return res;
  }
 
-void DRV_ENC_CopyBuffAck(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_TX_PACKET_INFO* pkt)
+void DRV_ENCX24J600_WritePktAck(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_TX_PACKET_INFO* pkt)
 {
     if(pkt->pCopyBuff != NULL)
     {   // return to the pool
@@ -1331,7 +1327,7 @@ void DRV_ENC_CopyBuffAck(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX
     }
 }
 
-uintptr_t DRV_ENCX24J600_WritePktCopy(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, DRV_ENCX24J600_TX_PACKET_INFO *  pkt, uint16_t dataSize)
+uintptr_t DRV_ENCX24J600_SPI_WritePkt(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, DRV_ENCX24J600_TX_PACKET_INFO *  pkt, uint16_t dataSize)
 {
     static int errorPrint = 0;
 
@@ -1389,62 +1385,49 @@ uintptr_t DRV_ENCX24J600_WritePktCopy(struct _DRV_ENCX24J600_DriverInfo *  pDrvI
     //Least intrusive fix for MH-4456
     if (ret == DRV_SPI_TRANSFER_HANDLE_INVALID)
     {
-        DRV_ENC_CopyBuffAck(pDrvInst, pkt);
+        DRV_ENCX24J600_WritePktAck(pDrvInst, pkt);
         return 0;
     }
     return ret;
 }
 
-
-uintptr_t DRV_ENCX24J600_WritePktSeg(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, DRV_ENCX24J600_TX_PACKET_INFO *  pkt, uint16_t dataSize)
- {
-     DRV_ENCX24J600_spiBusData * pBusInfo = (DRV_ENCX24J600_spiBusData *)pDrvInst->busData;
-     DRV_SPI_TRANSFER_HANDLE ret;
-
-     uint8_t* buffer = pkt->pDSeg->segLoad;
-     // dataSize == pkt->pDSeg->segLen;
-
-     switch (reg)
-     {
-         case DRV_ENCX24J600_PTR_GPWR:
-         case DRV_ENCX24J600_PTR_GPRD:
-         {
-             buffer[-1] = DRV_ENCX24J600_SPI_INST_WGPDATA;
-         }
-         break;
-         case DRV_ENCX24J600_PTR_RXWR:
-         case DRV_ENCX24J600_PTR_RXRD:
-         {
-             buffer[-1] = DRV_ENCX24J600_SPI_INST_WRXDATA;
-         }
-         break;
-         case DRV_ENCX24J600_PTR_UDAWR:
-         case DRV_ENCX24J600_PTR_UDARD:
-         {
-             buffer[-1] = DRV_ENCX24J600_SPI_INST_WUDADATA;
-         }
-         break;
-     }
-     
-     DRV_SPI_WriteTransferAdd(pBusInfo->clientHandle, &(buffer[-1]), dataSize+1, &ret);
-     //Least intrusive fix for MH-4456
-     if (ret == DRV_SPI_TRANSFER_HANDLE_INVALID)
-     {
-         return 0;
-     }
-     return ret;
- }
-
-uintptr_t DRV_ENCX24J600_SPI_WriteData(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, DRV_ENCX24J600_TX_PACKET_INFO *  pkt, uint16_t dataSize)
+uintptr_t DRV_ENCX24J600_SPI_WriteSeg(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, DRV_ENCX24J600_TX_PACKET_INFO *  pkt)
 {
-     if((pkt->pkt->pktFlags & TCPIP_MAC_PKT_FLAG_LINKED_SEG) != 0)
-     {
-         return DRV_ENCX24J600_WritePktCopy(pDrvInst, reg, pkt, dataSize);
-     }
-     else
-     {
-         return DRV_ENCX24J600_WritePktSeg(pDrvInst, reg, pkt, dataSize);
-     }
+    DRV_ENCX24J600_spiBusData * pBusInfo = (DRV_ENCX24J600_spiBusData *)pDrvInst->busData;
+    DRV_SPI_TRANSFER_HANDLE ret;
+
+    uint8_t* buffer = pkt->pDSeg->segLoad;
+    uint16_t dataSize = pkt->pDSeg->segLen;
+
+    switch (reg)
+    {
+        case DRV_ENCX24J600_PTR_GPWR:
+        case DRV_ENCX24J600_PTR_GPRD:
+            {
+                buffer[-1] = DRV_ENCX24J600_SPI_INST_WGPDATA;
+            }
+            break;
+        case DRV_ENCX24J600_PTR_RXWR:
+        case DRV_ENCX24J600_PTR_RXRD:
+            {
+                buffer[-1] = DRV_ENCX24J600_SPI_INST_WRXDATA;
+            }
+            break;
+        case DRV_ENCX24J600_PTR_UDAWR:
+        case DRV_ENCX24J600_PTR_UDARD:
+            {
+                buffer[-1] = DRV_ENCX24J600_SPI_INST_WUDADATA;
+            }
+            break;
+    }
+
+    DRV_SPI_WriteTransferAdd(pBusInfo->clientHandle, &(buffer[-1]), dataSize+1, &ret);
+    //Least intrusive fix for MH-4456
+    if (ret == DRV_SPI_TRANSFER_HANDLE_INVALID)
+    {
+        return 0;
+    }
+    return ret;
 }
 
 // *****************************************************************************
@@ -1468,14 +1451,14 @@ uintptr_t DRV_ENCX24J600_SPI_WriteData(struct _DRV_ENCX24J600_DriverInfo *  pDrv
     The bus had to have been initialized first.
 
     Parameters
-        pDrvInst â?? The driver instance
-        reg â?? the register to write to
-        buffer â?? the location of the buffer to write
-        dataSize â?? the size of the data to read.
+        pDrvInst - The driver instance
+        reg - the register to write to
+        buffer - the location of the buffer to write
+        dataSize - the size of the data to read.
 
     Returns:
-        0 â?? on error
-        Valid handle â?? on success
+        0 - on error
+        Valid handle - on success
 */
  static uint8_t rddCmd;
  uintptr_t DRV_ENCX24J600_SPI_ReadData(struct _DRV_ENCX24J600_DriverInfo *  pDrvInst, DRV_ENCX24J600_POINTER  reg, uint8_t *  buffer, uint16_t  dataSize)

@@ -600,10 +600,6 @@ typedef enum
     /* UDP checksum was calculated for this RX packet and is OK; 0x04 << 8 */
     TCPIP_MAC_PKT_FLAG_RX_CHKSUM_UDP        = 0x00000400,      
 
-    /* The packet uses its own segment buffers, rather than the packet allocated ones.
-       For modules that set their own 1st data segment (TCP, for example)  */
-    TCPIP_MAC_PKT_FLAG_LINKED_SEG           = 0x00000800,      
-
     /* Available user flags. */
     TCPIP_MAC_PKT_FLAG_USER                 = 0x00010000,      
 
