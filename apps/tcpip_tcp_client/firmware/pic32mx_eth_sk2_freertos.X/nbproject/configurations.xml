@@ -733,7 +733,7 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MX_DFP" vendor="Microchip" version="1.5.259"/>
+        <pack name="PIC32MX_DFP" vendor="Microchip" version="1.6.369"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -1157,7 +1157,6 @@
         <property key="event.recorder.debugger.behavior" value="Running"/>
         <property key="event.recorder.enabled" value="false"/>
         <property key="event.recorder.scvd.files" value=""/>
-        <property key="firmware.download.all" value="false"/>
         <property key="lastid" value=""/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>

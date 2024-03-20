@@ -9945,7 +9945,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_freertos\configuration.h</file>
-         <hash>91db2c17adb3a2db6fa18ecfbf5fe29a8143050efc81662173d74dbbd3584ca7</hash>
+         <hash>3de42edddaf3c16f943fca9ae5e220ee3ab3655709bdfda7472dfb9bd6e0196f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_freertos\crypto\crypto.h</file>
