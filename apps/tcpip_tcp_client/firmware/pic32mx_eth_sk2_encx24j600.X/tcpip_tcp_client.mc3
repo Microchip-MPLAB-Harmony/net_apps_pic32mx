@@ -1660,7 +1660,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_80_DIR&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;Out&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -3025,7 +3025,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SYS_PORT_D_TRIS&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;8711&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;519&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -7981,7 +7981,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_encx24j600\configuration.h</file>
-         <hash>da7e4a079008606c95b893361223abcf892fd6c5088b9af11403db13cac37109</hash>
+         <hash>e6798ac9cf4520df524df3d5182590ea764d6370f4a2348920cf2d1e4318ae26</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_encx24j600\crypto\crypto.h</file>
@@ -8013,15 +8013,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_encx24j600\driver\encx24j600\src\dynamic\bus\drv_encx24j600_bus.h</file>
-         <hash>58969e893c72a9b78f99c35c419730f42dc310c05957061fa0c2fc3aa9c3ad16</hash>
+         <hash>d5728d012beb4809c7ae300613c2793bc18eb02890167987a1779b7048e5ee9a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_encx24j600\driver\encx24j600\src\dynamic\bus\spi\drv_encx24j600_spi_bus.c</file>
-         <hash>e0ce0129d86ee7cae4828683822b6cea853d70cf42810d55c236d3858e45dd5f</hash>
+         <hash>b52d0edda7af28ee0d030a6894ffe32223d7e4e04a63af561bdffad844baa945</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_encx24j600\driver\encx24j600\src\dynamic\bus\spi\drv_encx24j600_spi_bus.h</file>
-         <hash>ef68769220de7760f84237922fdd1472f4fd6b285a1787de1f0bd612ede2db25</hash>
+         <hash>9d073e26ae577aa5e8b9609fe141b29043d1111183d113397cbae2138886eb64</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_encx24j600\driver\encx24j600\src\dynamic\closed_state\drv_encx24j600_closed_state.c</file>
@@ -8101,11 +8101,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_encx24j600\driver\encx24j600\src\dynamic\packet\drv_encx24j600_tx_packet.c</file>
-         <hash>622b59fa181b3c0b4e5b49f9627ce6242ec08b5e57ba384e435d51794508bc11</hash>
+         <hash>4c6622c7f877d6601f8d1b28e4bccf54f1eaac96ba3884a2c98f0274306adb80</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_encx24j600\driver\encx24j600\src\dynamic\packet\drv_encx24j600_tx_packet.h</file>
-         <hash>cfe17c1561f6421e131de90ea22f28273e98bd2414fd79844a57a3d56a56d1cd</hash>
+         <hash>4282a4cb7559af73792814e63cf0a383f96dc19900bfa72fffd79c08bf5260fb</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_encx24j600\driver\encx24j600\src\dynamic\running_state\drv_encx24j600_change_duplex_state.c</file>

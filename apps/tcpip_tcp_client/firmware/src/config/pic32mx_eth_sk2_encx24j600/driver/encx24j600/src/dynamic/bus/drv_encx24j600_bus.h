@@ -629,8 +629,8 @@ typedef DRV_ENCX24J600_BUS_RESULT (*DRV_ENCX24J600_ReadPointerResult)(struct _DR
         dataSize - the size of the data to write.
 
     Returns:
-        0 on error
-        Valid handle on success
+        0 - on error
+        Valid handle - on success
 */
 typedef uintptr_t (*DRV_ENCX24J600_WriteSeg)(struct _DRV_ENCX24J600_DriverInfo *  pDrvInstance, DRV_ENCX24J600_POINTER  reg, struct _DRV_ENCX24J600_TX_PACKET_INFO *  pkt);
 
