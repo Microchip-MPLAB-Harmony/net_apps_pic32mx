@@ -7467,7 +7467,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_enc28j60\configuration.h</file>
-         <hash>5981ce3035bbbcac2519f8abacd03d9e1a5dcb33b9419ea87549f2a677dcb05f</hash>
+         <hash>187d6d1bfef616e7736c38d2b022207f6a733c2da6b752c4056c83c6db7dd021</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2_enc28j60\crypto\crypto.h</file>
