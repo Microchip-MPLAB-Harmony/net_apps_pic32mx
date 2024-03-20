@@ -8892,7 +8892,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2\configuration.h</file>
-         <hash>93d4d26830ea71701c6bc30f715ad53655c66f61c7380dacb77c231b559e4807</hash>
+         <hash>2f8231d040a73d3ed6700fe9c8fcb40d374ac0a665dda87b847f0179c63557bc</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mx_eth_sk2\crypto\crypto.h</file>
