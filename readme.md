@@ -1,7 +1,7 @@
 ![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
-# Harmony 3 Net library application examples for PIC32MX family
+# MPLAB® Harmony 3 Network Application Examples for PIC32MX Family
 
 MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded firmware solutions for Microchip 32-bit SAM and PIC® microcontroller and microprocessor devices.  Refer to the following links for more information.
 
@@ -14,22 +14,25 @@ MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded
 This repository contains the MPLAB® Harmony 3 Net library application examples for PIC32MX family
 
 - [Release Notes](./release_notes.md)
-- [Microchip Software License Agreement](./mplab_harmony_license.md)
+- [MPLAB® Harmony License](./mplab_harmony_license.md)
 
-# Contents Summary
+To clone or download these applications from Github, go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/net_apps_pic32mx/) and then click **Clone**<br /> button to clone this repository or download as zip file. This content can also be downloaded using <br /> MCC content manager available as part of the MPLAB® X IDE.
+
+## Contents Summary
 
 | Folder     | Description                                               |
 | ---        | ---                                                       |
-| apps       | Contains Net library example applications        |
-| docs       | Contains documentation in html format for offline viewing (to be used only after cloning this repository onto a local machine). Use [github pages](https://microchip-mplab-harmony.github.io/net_apps_pic32mx/) of this repository for viewing it online.|
+| apps       | Contains Net library example applications                 |
 
 ## Code Examples
 
-The following applications are provided to demonstrate the typical or interesting usage models of the Net libraries.
+Click [here](https://onlinedocs.microchip.com/v2/keyword-lookup?keyword=NET_APPS_PIC32MX_H3_TCP_IP_APP_PIC32MX_FAMILY&redirect=true) to view the online documentation of code examples hosted in this repository.
 
-| Name | Description |
-| ---- | ----------- |
-| [tcpip_tcp_client](./docs/GUID-BE21D51D-4843-446B-8B37-0D3835848698.html) | This example application shows a TCP Client demo using Harmony native API |
+To view the documentation offline, follow these steps:
+ - Download the publication as a zip file from [here](https://onlinedocs.microchip.com/download/GUID-EE586D6D-7F10-4FB5-874A-DF98C5BF195B?type=webhelp).
+ - Extract the zip file into a folder.
+ - Navigate to the folder and open **index.html** in a web browser of your choice.
+
 ____
 
 
