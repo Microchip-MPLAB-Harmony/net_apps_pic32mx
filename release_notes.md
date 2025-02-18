@@ -1,13 +1,30 @@
----
-title: Release notes
-nav_order: 99
----
-
 ![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## Network Application Examples for PIC32MX Family, v3.9.1
+
+### New Features
+- None
+
+### Improvements and Bug Fixes
+- Documentation updates
+
+### Known Issues
+- None
+
+
+### Development Tools
+- Same as previous release (v3.9.0)
+
+### Development Kit Support
+- Same as previous release (v3.9.0)
+
+## Net Release Notes
+- Same as previous release (v3.9.0)
+
+---
 ## Network Application Examples for PIC32MX Family, v3.9.0
 
 ### New Features
